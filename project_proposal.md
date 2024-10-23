@@ -36,5 +36,12 @@ Here are a few examples to get you started with. During the proposal stage, you 
 | Set up frontend             | Set up frontend framework of choice and link it to the backend with a simple API call for example.            | [Link](https://github.com/hatchways/sb-capstone-example/issues/5) | 
 | User Authentication         | Fullstack feature - ability to authenticate (login and sign up) as a user                                     | [Link](https://github.com/hatchways/sb-capstone-example/issues/6) | 
 
-## Labeling
+## Features
+
+- Allow users to signin and login with authentication
+- User profile contains information like player skill level, availablities during the week, and preferred court location
+- Ability to view other players' profiles nearby
+- Ability to message players nearby
+- Interactive google maps that allows users to view the preferred courts of the players nearby them
+
 
