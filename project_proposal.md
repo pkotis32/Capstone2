@@ -29,7 +29,7 @@ Here are a few examples to get you started with. During the proposal stage, you 
 
 | Task Name                   | Description                                                                                                   | Example                                                           | Actual |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------- |
-| Design Database schema      | Determine the models and database schema required for your project.                                           | [Link](https://github.com/hatchways/sb-capstone-example/issues/1) | [
+| Design Database schema      | Determine the models and database schema required for your project.                                           | [Link](https://github.com/hatchways/sb-capstone-example/issues/1) | 
 | Source Your Data            | Determine where your data will come from. You may choose to use an existing API or create your own.           | [Link](https://github.com/hatchways/sb-capstone-example/issues/2) | [Api Link](https://developers.google.com/maps/documentation/embed/embedding-map)
 | User Flows                  | Determine user flow(s) - think about what you want a user’s experience to be like as they navigate your site. | [Link](https://github.com/hatchways/sb-capstone-example/issues/3) | 
 | Set up backend and database | Configure the environmental variables on your framework of choice for development and set up database.        | [Link](https://github.com/hatchways/sb-capstone-example/issues/4) | 
