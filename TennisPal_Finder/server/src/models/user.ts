@@ -1,8 +1,18 @@
 
-import db from ('../db');
+import {db} from '../db';
 import bcrypt from 'bcrypt';
 import {NotFoundError, BadRequestError, UnauthorizedError} from '../expressError';
 import { BCRYPT_WORK_FACTOR } from '../config';
+
+
+interface UserInfo {
+    username: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    email: string, 
+    skillLevel: string
+}
 
 class User {
 
@@ -12,11 +22,11 @@ class User {
     static async authenticate(username: string, password: string) {
 
         const result = await db.query(
-            `SELECT username
-                    password
-                    first_name as firstName
-                    last_name as lastName
-                    email
+            `SELECT username,
+                    password,
+                    first_name as firstName,
+                    last_name as lastName,
+                    email,
                     skill_level as skillLevel
             FROM users
             WHERE username = $1`, 
@@ -43,7 +53,7 @@ class User {
     // register new user
     // returns user info {username, first_name, last_name, email, skillLevel}
     // throws bad request error if a duplicate user was found
-    static async register(username: string, password: string, firstName: string, lastName: string, email: string, skillLevel: string) {
+    static async register({username, password, firstName, lastName, email, skillLevel}: UserInfo) {
         
         const duplicateCheck = await db.query(
             `SELECT username 
@@ -55,6 +65,10 @@ class User {
         if (duplicateCheck.rows[0]) {
             throw new BadRequestError(`Duplicate username: ${username}`);
         }
+
+        console.log(password)
+        console.log(BCRYPT_WORK_FACTOR);
+
 
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
@@ -70,3 +84,5 @@ class User {
         return user;
     }
 }
+
+export {User};

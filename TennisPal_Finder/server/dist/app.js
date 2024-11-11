@@ -4,29 +4,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const { NotFoundError } = require('./expressError');
-const app = (0, express_1.default)();
-const cors = require("cors");
+const expressError_1 = require("./expressError");
+const cors_1 = __importDefault(require("cors"));
 const corOptions = {
     origin: ["http://localhost:5173"],
 };
-app.use(cors(corOptions));
+const auth_1 = __importDefault(require("./routes/auth"));
+const app = (0, express_1.default)();
+app.use((0, cors_1.default)(corOptions));
 app.use(express_1.default.json());
+app.use('/auth', auth_1.default);
 app.get("/", (req, res) => {
     res.json("Hello from Express!");
 });
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {
-    return next(new NotFoundError());
+    return next(new expressError_1.NotFoundError());
 });
 /** Generic error handler; anything unhandled goes here. */
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test")
         console.error(err.stack);
     const status = err.status || 500;
-    const message = err.message;
-    return res.status(status).json({
+    const message = err.error;
+    res.status(status).json({
         error: { message, status },
     });
 });
-module.exports = app;
+exports.default = app;
