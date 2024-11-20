@@ -1,0 +1,10 @@
+.form_elements {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  width: 10%;
+  margin: 0 auto;
+}

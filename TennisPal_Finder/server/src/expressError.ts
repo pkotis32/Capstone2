@@ -6,9 +6,10 @@
 
 class ExpressError extends Error {
   status: number;
-  constructor(message: string, status: number) {
+  error: string | string[];
+  constructor(message: string | string[], status: number) {
     super();
-    this.message = message;
+    this.error = message;
     this.status = status;
   }
 }
@@ -32,7 +33,7 @@ class UnauthorizedError extends ExpressError {
 /** 400 BAD REQUEST error. */
 
 class BadRequestError extends ExpressError {
-  constructor(message = "Bad Request") {
+  constructor(message: string | string[] = "Bad Request") {
     super(message, 400);
   }
 }
@@ -45,10 +46,10 @@ class ForbiddenError extends ExpressError {
   }
 }
 
-module.exports = {
-  ExpressError,
-  NotFoundError,
-  UnauthorizedError,
-  BadRequestError,
-  ForbiddenError,
-};
+export {ExpressError,
+        NotFoundError,
+        UnauthorizedError,
+        BadRequestError,
+        ForbiddenError}
+  
+

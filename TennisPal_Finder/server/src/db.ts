@@ -2,7 +2,7 @@
 import {Client} from 'pg';
 import {getDatabaseUri} from './config';
 
-let db;
+let db: any;
 
 if (process.env.NODE_ENV === "production") {
     db = new Client({
@@ -19,4 +19,4 @@ if (process.env.NODE_ENV === "production") {
   
   db.connect();
   
-  export default db
+  export {db}
