@@ -1,20 +1,12 @@
 import express, { Request, Response, NextFunction } from "express";
 import {NotFoundError} from './expressError';
 import cors from 'cors';
-const corOptions = {
-  origin: ["http://localhost:5173"],
-};
 import authRoutes from './routes/auth';
 
-
 const app = express();
-app.use(cors(corOptions));
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
-
-
 app.use('/auth', authRoutes);
-
-
 
 
 
