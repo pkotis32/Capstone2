@@ -14,7 +14,8 @@ interface UserInfo {
     skillLevel: string
 }
 
-class User {
+// handles methods that interact with the users table in the database
+class Users {
 
     // authenticate user with username and password
     // returns user info {username, first_name, last_name, email, skillLevel}
@@ -24,10 +25,10 @@ class User {
         const result = await db.query(
             `SELECT username,
                     password,
-                    first_name as firstName,
-                    last_name as lastName,
+                    first_name as "firstName",
+                    last_name as "lastName",
                     email,
-                    skill_level as skillLevel
+                    skill_level as "skillLevel"
             FROM users
             WHERE username = $1`, 
             [username]
@@ -76,7 +77,7 @@ class User {
             `INSERT INTO users 
             (username, password, first_name, last_name, email, skill_level)
             VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING username, first_name as firstName, last_name as lastName, email, skill_level as skillLevel`,
+            RETURNING username, first_name as "firstName", last_name as "lastName", email, skill_level as "skillLevel"`,
             [username, hashedPassword, firstName, lastName, email, skillLevel]
         );
 
@@ -88,14 +89,28 @@ class User {
     static async findAll() {
         const result = await db.query(
             `SELECT username,
-                    first_name AS firstName,
-                    last_name AS lastName,
-                    skill_level AS skillLevel
+                    first_name AS "firstName",
+                    last_name AS "lastName",
+                    skill_level AS "skillLevel"
             FROM USERS
             ORDER BY username`,
         );
         return result.rows;
     }
+
+
+    static async get(username: string) {
+        const result = await db.query(
+            `SELECT user_id AS "userId"
+            FROM users
+            WHERE username = $1`,
+            [username]
+        );
+
+        let {userId} = result.rows[0];
+        return userId;
+    }
+
 }
 
-export {User};
+export default Users;

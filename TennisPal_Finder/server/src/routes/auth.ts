@@ -1,6 +1,6 @@
 import jsonschema from 'jsonschema';
 import {createToken} from '../helpers/tokens';
-import {User} from '../models/user';
+import Users from '../models/users';
 import express from 'express';
 const router = express.Router();
 import userAuthSchema from '../schemas/userAuth.json';
@@ -30,7 +30,7 @@ router.post('/token', async function (req, res, next) {
         }
 
         const {username, password}: {username: string, password: string}= req.body;
-        const user: UserInfo = await User.authenticate(username, password);
+        const user: UserInfo = await Users.authenticate(username, password);
         const token: string = createToken(user);
         res.json({token});
     } catch (error) {
@@ -60,7 +60,7 @@ router.post('/register', async function (req, res, next) {
             throw new BadRequestError(errs);
         }
         
-        const newUser: User = await User.register({...req.body});
+        const newUser: User = await Users.register({...req.body});
         const token = createToken(newUser);
         res.status(201).json({token});
     } catch (error) {

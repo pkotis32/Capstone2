@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Users = void 0;
 const db_1 = require("../db");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const expressError_1 = require("../expressError");
 const config_1 = require("../config");
-class User {
+// handles methods that interact with the users table in the database
+class Users {
     // authenticate user with username and password
     // returns user info {username, first_name, last_name, email, skillLevel}
     // throws unauthorized error if user is not found or wrong password
@@ -25,10 +25,10 @@ class User {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield db_1.db.query(`SELECT username,
                     password,
-                    first_name as firstName,
-                    last_name as lastName,
+                    first_name as "firstName",
+                    last_name as "lastName",
                     email,
-                    skill_level as skillLevel
+                    skill_level as "skillLevel"
             FROM users
             WHERE username = $1`, [username]);
             const user = result.rows[0];
@@ -61,7 +61,7 @@ class User {
             const result = yield db_1.db.query(`INSERT INTO users 
             (username, password, first_name, last_name, email, skill_level)
             VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING username, first_name as firstName, last_name as lastName, email, skill_level as skillLevel`, [username, hashedPassword, firstName, lastName, email, skillLevel]);
+            RETURNING username, first_name as "firstName", last_name as "lastName", email, skill_level as "skillLevel"`, [username, hashedPassword, firstName, lastName, email, skillLevel]);
             const user = result.rows[0];
             return user;
         });
@@ -69,12 +69,22 @@ class User {
     static findAll() {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield db_1.db.query(`SELECT username,
-                    first_name AS firstName,
-                    last_name AS lastName,
-                    skill_level AS skillLevel
+                    first_name AS "firstName",
+                    last_name AS "lastName",
+                    skill_level AS "skillLevel"
             FROM USERS
             ORDER BY username`);
             return result.rows;
         });
     }
+    static get(username) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield db_1.db.query(`SELECT user_id AS "userId"
+            FROM users
+            WHERE username = $1`, [username]);
+            let { userId } = result.rows[0];
+            return userId;
+        });
+    }
 }
+exports.default = Users;

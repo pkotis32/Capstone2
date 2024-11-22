@@ -20,10 +20,7 @@ CREATE TABLE court_locations (
     court_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
     court_name VARCHAR(100) NOT NULL,
-    location_address VARCHAR(255),
-    city VARCHAR(50),
-    state VARCHAR(50),
-    zipcode VARCHAR(20),
+    address VARCHAR(255),
     latitude DECIMAL(9,6),
     longitude DECIMAL (9,6),
     preferred BOOLEAN DEFAULT FALSE -- Whether this is the user's preferred court
