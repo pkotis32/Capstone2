@@ -2,11 +2,13 @@ import express, { Request, Response, NextFunction } from "express";
 import {NotFoundError} from './expressError';
 import cors from 'cors';
 import authRoutes from './routes/auth';
+import userRoutes from './routes/users';
 
 const app = express();
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 
 

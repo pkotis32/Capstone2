@@ -66,5 +66,16 @@ class User {
             return user;
         });
     }
+    static findAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield db_1.db.query(`SELECT username,
+                    first_name AS firstName,
+                    last_name AS lastName,
+                    skill_level AS skillLevel
+            FROM USERS
+            ORDER BY username`);
+            return result.rows;
+        });
+    }
 }
 exports.User = User;

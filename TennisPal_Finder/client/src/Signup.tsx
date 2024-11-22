@@ -69,8 +69,17 @@ const Signup = ({signup}: signupProps) => {
           <input className="ms-3 mb-2" name="lastName" value={formData.lastName} onChange={(e) => handleChange(e)} type="text" />
         </label>
         <label>
-          Skill Level: 
-          <input className="ms-3 mb-2" name="skillLevel" value={formData.skillLevel} onChange={(e) => handleChange(e)} type="text" />
+          SkillLevel:
+          <select 
+              className="ms-3 mb-2" 
+              name="skillLevel" 
+              value={formData.skillLevel} 
+              onChange={(e) => handleChange(e)}
+            >
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
         </label>
       </div>
       <button className="btn btn-primary">Signup</button>

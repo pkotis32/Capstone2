@@ -9,7 +9,7 @@ const Home = () => {
   
 
   useEffect(() => {
-    setSuccess(location.state.message);
+    setSuccess(location.state?.message);
     const timer = setTimeout(() =>  {
       setSuccess(null);
     }, 3000)
