@@ -19,7 +19,7 @@ CREATE TABLE users (
 CREATE TABLE court_locations (
     court_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
-    court_name VARCHAR(100) NOT NULL,
+    court_name VARCHAR(100) UNIQUE NOT NULL,
     address VARCHAR(255),
     latitude DECIMAL(9,6),
     longitude DECIMAL (9,6),

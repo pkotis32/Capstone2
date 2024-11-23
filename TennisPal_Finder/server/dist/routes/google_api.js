@@ -32,7 +32,6 @@ router.post('/save_address/:username', function (req, res, next) {
             const response = yield axios_1.default.get(`${BASE_API}?address=${encodedAddress}&key=${API_KEY}`);
             let data = response.data;
             const { lat, lng } = data.results[0].geometry.location;
-            console.log(lat, lng);
             const location = yield court_locations_1.default.save_address(userId, court_name, address, lat, lng);
             res.json({ location });
         }

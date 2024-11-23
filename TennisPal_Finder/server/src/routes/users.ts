@@ -17,11 +17,15 @@ router.get('/', async function (req, res, next) {
     username: string,
     firstName: string,
     lastName: string,
-    skillLevel: string
+    skillLevel: string,
+    courtName: string,
+    address: string,
+    latitude: number,
+    longitude: number
   }
 
   try {
-    const users: UserInfo[] = await Users.findAll();
+    const users: UserInfo = await Users.findAll();
     res.json({users})
   } catch (error) {
     return next(error)
@@ -37,7 +41,7 @@ router.get('/', async function (req, res, next) {
 router.get('/:username', async function(req, res, next) {
   try {
     const username = req.params.username;
-    const userId = await Users.get(username);
+    const userId: number = await Users.get(username);
     res.json({userId})
   } catch (error) {
     return next(error);

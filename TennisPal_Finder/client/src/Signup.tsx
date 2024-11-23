@@ -20,7 +20,7 @@ const Signup = ({signup}: signupProps) => {
     email: '',
     firstName: '',
     lastName: '',
-    skillLevel: ''
+    skillLevel: 'beginner'
   })
   
   const handleChange = (e: any) => {
@@ -69,20 +69,24 @@ const Signup = ({signup}: signupProps) => {
           <input className="ms-3 mb-2" name="lastName" value={formData.lastName} onChange={(e) => handleChange(e)} type="text" />
         </label>
         <label>
-          SkillLevel:
-          <select 
-              className="ms-3 mb-2" 
-              name="skillLevel" 
-              value={formData.skillLevel} 
-              onChange={(e) => handleChange(e)}
-            >
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </select>
+          <div>
+            SkillLevel:
+          </div>
+          <div>
+            <select 
+                className="ms-3 mb-2" 
+                name="skillLevel" 
+                value={formData.skillLevel} 
+                onChange={(e) => handleChange(e)}
+              >
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
         </label>
-      </div>
-      <button className="btn btn-primary">Signup</button>
+        <button className="btn btn-primary">Signup</button>
+      </div> 
       {error ? (<div className="text-danger">{error}</div>) : null}
     </form>
    </>

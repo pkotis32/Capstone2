@@ -25,7 +25,6 @@ router.post('/save_address/:username', async function (req, res, next) {
     let data = response.data
 
     const {lat, lng} = data.results[0].geometry.location;
-    console.log(lat, lng)
     const location = await court_locations.save_address(userId, court_name, address, lat, lng);
     
     res.json({location});

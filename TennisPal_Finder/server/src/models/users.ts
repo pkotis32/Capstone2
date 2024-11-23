@@ -85,20 +85,27 @@ class Users {
         return user;
     }
 
-    
+    // gets all profile info for all users, including courtLocations and availabilities
     static async findAll() {
         const result = await db.query(
             `SELECT username,
                     first_name AS "firstName",
                     last_name AS "lastName",
-                    skill_level AS "skillLevel"
-            FROM USERS
+                    skill_level AS "skillLevel",
+                    court_name AS "courtName",
+                    address,
+                    latitude,
+                    longitude
+            FROM users
+            LEFT JOIN court_locations
+            ON users.user_id = court_locations.user_id
             ORDER BY username`,
         );
+
         return result.rows;
     }
 
-
+    
     static async get(username: string) {
         const result = await db.query(
             `SELECT user_id AS "userId"
