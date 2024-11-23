@@ -44,11 +44,11 @@ const Login = ({login}: loginProps) => {
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="form_elements">
           <label>
-            Username:
+            <div>Username:</div>
             <input className="mb-2" name = "username" value = {formData.username} onChange = {(e) => handleChange(e)}  />
           </label>
           <label>
-            Password:
+            <div>Password:</div>
             <input className="mb-2" name = "password" value = {formData.password} onChange = {(e) => handleChange(e)} type="password" />
           </label>
           <button className = "btn w-50 btn-primary">Login</button>

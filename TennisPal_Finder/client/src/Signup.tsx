@@ -49,32 +49,32 @@ const Signup = ({signup}: signupProps) => {
     <form onSubmit={(e) => {handleSubmit(e)}}>
       <div className="form_elements">
         <label>
-          Username: 
-          <input className="ms-3 mb-2" name="username" value={formData.username} onChange={(e) => handleChange(e)} type="text" />
+          <div> Username: </div>
+          <input className="mb-2" name="username" value={formData.username} onChange={(e) => handleChange(e)} type="text" />
         </label>
         <label>
-          Password: 
-          <input className="ms-3 mb-2" name="password" value={formData.password} onChange={(e) => handleChange(e)} type="password" />
+          <div>Password:</div>
+          <input className="mb-2" name="password" value={formData.password} onChange={(e) => handleChange(e)} type="password" />
         </label>
         <label>
-          Email: 
-          <input className="ms-3 mb-2" name="email" value={formData.email} onChange={(e) => handleChange(e)} type="text" />
+          <div>Email:</div>
+          <input className="mb-2" name="email" value={formData.email} onChange={(e) => handleChange(e)} type="text" />
         </label>
         <label>
-          First Name: 
-          <input className="ms-3 mb-2" name="firstName" value={formData.firstName} onChange={(e) => handleChange(e)} type="text" />
+          <div>First Name:</div> 
+          <input className="mb-2" name="firstName" value={formData.firstName} onChange={(e) => handleChange(e)} type="text" />
         </label>
         <label>
-          Last Name: 
-          <input className="ms-3 mb-2" name="lastName" value={formData.lastName} onChange={(e) => handleChange(e)} type="text" />
+          <div>Last Name:</div> 
+          <input className="mb-2" name="lastName" value={formData.lastName} onChange={(e) => handleChange(e)} type="text" />
         </label>
         <label>
           <div>
-            SkillLevel:
+            <div>SkillLevel:</div>
           </div>
           <div>
             <select 
-                className="ms-3 mb-2" 
+                className="mb-2" 
                 name="skillLevel" 
                 value={formData.skillLevel} 
                 onChange={(e) => handleChange(e)}
@@ -86,8 +86,8 @@ const Signup = ({signup}: signupProps) => {
           </div>
         </label>
         <button className="btn btn-primary">Signup</button>
+        {error ? (<div className="text-danger">{error}</div>) : null}
       </div> 
-      {error ? (<div className="text-danger">{error}</div>) : null}
     </form>
    </>
   )
