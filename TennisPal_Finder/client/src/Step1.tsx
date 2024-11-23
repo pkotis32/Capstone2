@@ -2,7 +2,6 @@ import React, {useState, useContext} from 'react'
 import './Step1.css'
 import {useNavigate} from 'react-router-dom'
 import UserContext from './UserContext.jsx'
-import './Step1.css'
 import TennisApi from '../api.js'
 
 const Step1 = () => {
@@ -44,7 +43,7 @@ const Step1 = () => {
       <div className="step">
         <h5 className='text-primary p-3'>Step 1/3</h5>
       </div>
-      <h1>Enter Address Information</h1>
+      <h1>Enter Your Home Address</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="form_elements">
           <label>

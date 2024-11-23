@@ -51,7 +51,7 @@ router.get('/:username', function (req, res, next) {
 // POST /users/saveAddress/:username  (address) => {location}
 // saves user address, return location object {address, latitude, longitude}
 // authorization required; user logged in
-router.patch('/save_address/:username', function (req, res, next) {
+router.patch('/:username/save_address', function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { username } = req.params;

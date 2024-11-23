@@ -61,7 +61,17 @@ class TennisApi {
       address
     }
 
-    let res = await this.request(`users/save_address/${username}`, data, 'patch');
+    let res = await this.request(`users/${username}/save_address`, data, 'patch');
+    return res;
+  }
+
+  
+  static async saveCourtAddress(username: string, address: string) {
+    let data = {
+      address
+    }
+
+    let res = await this.request(`users/${username}/save_court_address`, data, 'post')
     return res;
   }
 
