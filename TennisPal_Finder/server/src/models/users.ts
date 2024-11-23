@@ -118,6 +118,16 @@ class Users {
         return userId;
     }
 
+
+    static async saveAddress(username: string, address: string, latitude: number, longitude: number) {
+        const result = await db.query(
+            `UPDATE users 
+             SET address = $1, latitude = $2, longitude = $3
+             WHERE username = $4`,
+            [address, latitude, longitude, username]
+        );
+    }
+
 }
 
 export default Users;

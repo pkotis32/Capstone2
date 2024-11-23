@@ -34,7 +34,7 @@ const Signup = ({signup}: signupProps) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await signup(formData)
+      await signup(formData);
       navigate('/', {state: {message: "You successfully signed up!"}});
     }
     catch (error: any) {

@@ -4,8 +4,8 @@ import FinishProfile from './FinishProfile';
 
 
 
-
 const Home = () => {
+  
   const location = useLocation();
   const [success, setSuccess] = useState<string | null>(location.state?.message);
   const [finishedProfile, setFinishedProfile] = useState(false);

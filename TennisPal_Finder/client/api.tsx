@@ -40,7 +40,7 @@ class TennisApi {
       lastName,
       skillLevel
     }
-    
+
     let res = await this.request('auth/register', data, 'post');
     return res;
   }
@@ -52,6 +52,16 @@ class TennisApi {
     }
 
     let res = await this.request('auth/token', data, 'post');
+    return res;
+  }
+
+
+  static async saveAddress(username: string, address: string) {
+    let data = {
+      address
+    }
+
+    let res = await this.request(`users/save_address/${username}`, data, 'patch');
     return res;
   }
 

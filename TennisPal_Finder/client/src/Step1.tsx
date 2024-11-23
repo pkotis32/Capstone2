@@ -1,13 +1,18 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import './Step1.css'
 import {useNavigate} from 'react-router-dom'
+import UserContext from './UserContext.jsx'
+import './Step1.css'
+import TennisApi from '../api.js'
 
 const Step1 = () => {
   
+  const username = useContext(UserContext)
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
-    streetName: '',
+    streetAddress: '',
     city: '',
     state: '',
     zipCode: '',
@@ -22,15 +27,20 @@ const Step1 = () => {
   };
 
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const fullAddress =  `${formData.streetName}, ${formData.city}, ${formData.state} ${formData.zipCode}`
-    navigate('/finish/step2')
+    try {
+      const fullAddress = `${formData.streetAddress}, ${formData.city}, ${formData.state} ${formData.zipCode}`
+      await TennisApi.saveAddress(username, fullAddress)
+      navigate('/finish/step2')
+    } catch (error: any) {
+      setError(error[0]);
+    }
   }
   
   
   return (
-    <div className="container mt-5">
+    <div className="container w-50 mt-5">
       <div className="step">
         <h5 className='text-primary p-3'>Step 1/3</h5>
       </div>
@@ -38,8 +48,8 @@ const Step1 = () => {
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="form_elements">
           <label>
-            <div>Street Name:</div>
-            <input required className="mb-2" name="streetName" value={formData.streetName} onChange={(e) => handleChange(e)} type="text" />
+            <div>Street Address:</div>
+            <input required className="mb-2" name="streetAddress" value={formData.streetAddress} onChange={(e) => handleChange(e)} type="text" />
           </label>
           <label>
             <div>City:</div>
@@ -50,10 +60,11 @@ const Step1 = () => {
             <input required className="mb-2" name="state" value={formData.state} onChange={(e) => handleChange(e)}type="text" />
           </label>
           <label>
-            <div>Zip Code</div> 
+            <div>Zip Code:</div> 
             <input required className="mb-2" name="zipCode" value={formData.zipCode} onChange={(e) => handleChange(e)} type="text" />
           </label>
           <button className="btn btn-primary">Submit</button>
+          {error ? (<div className="text-danger">{error}</div>) : null}
         </div> 
       </form>
     </div>

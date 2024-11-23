@@ -8,6 +8,8 @@ import Home from './Home'
 import Login from './Login'
 import Signup from './Signup'
 import Step1 from './Step1'
+import Step2 from './Step2'
+import UserContext from './UserContext'
 
 
 
@@ -68,16 +70,18 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <NavigationBar user={currUser} logout={logout}></NavigationBar>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<Login login={login} />}></Route>
-          <Route path="/signup" element={<Signup signup={signup} />}></Route>
-          <Route path="/finish/step1" element={<Step1 />}></Route>
-        </Routes>
-      </BrowserRouter>
-      
+      <UserContext.Provider value={currUser}>
+        <BrowserRouter>
+          <NavigationBar user={currUser} logout={logout}></NavigationBar>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/login" element={<Login login={login} />}></Route>
+            <Route path="/signup" element={<Signup signup={signup} />}></Route>
+            <Route path="/finish/step1" element={<Step1 />}></Route>
+            <Route path="/finish/step2" element={<Step2 />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </UserContext.Provider>
     </>
   )
 }

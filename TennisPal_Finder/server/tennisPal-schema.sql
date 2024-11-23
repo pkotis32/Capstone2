@@ -12,7 +12,10 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
-    skill_level VARCHAR(20) -- Beginner, Intermediate, Advanced
+    skill_level VARCHAR(20), -- Beginner, Intermediate, Advanced
+    address VARCHAR(255),
+    latitude DECIMAL(9,6),
+    longitude DECIMAL (9,6)
 );
 
 -- Create court_locations table (references user_id from users)

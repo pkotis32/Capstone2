@@ -93,5 +93,12 @@ class Users {
             return userId;
         });
     }
+    static saveAddress(username, address, latitude, longitude) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield db_1.db.query(`UPDATE users 
+             SET address = $1, latitude = $2, longitude = $3
+             WHERE username = $4`, [address, latitude, longitude, username]);
+        });
+    }
 }
 exports.default = Users;
