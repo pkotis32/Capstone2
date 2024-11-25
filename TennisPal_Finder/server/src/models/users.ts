@@ -119,7 +119,7 @@ class Users {
                     court_locations.court_address AS "courtAddress",
                     court_locations.court_latitude AS "courtLat",
                     court_locations.court_longitude AS "courtLng",
-                    user_availabilities.day_of_week AS "dayOfWeek"
+                    user_availabilities.day_of_week AS "availability"
             FROM users
             LEFT JOIN court_locations ON users.user_id = court_locations.user_id
             LEFT JOIN user_availabilities ON users.user_id = user_availabilities.user_id
@@ -141,14 +141,9 @@ class Users {
     }
 
 
-    static async saveCourtAddress(userId: number, courtName: string, courtAddress: string, latitude: number, longitude: number) {
-        const result = await db.query(`
-            INSERT INTO court_locations
-            (user_id, court_name, court_address, court_latitude, court_longitude)
-            VALUES ($1, $2, $3, $4, $5)`,
-            [userId, courtName, courtAddress, latitude, longitude]
-        )
-    };
+    
+
+
 }
 
 export default Users;

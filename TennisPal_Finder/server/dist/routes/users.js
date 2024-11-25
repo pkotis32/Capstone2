@@ -14,12 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonschema_1 = __importDefault(require("jsonschema"));
 const users_1 = __importDefault(require("../models/users"));
+const court_locations_1 = __importDefault(require("../models/court_locations"));
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const expressError_1 = require("../expressError");
+const expressError_2 = require("../expressError");
 const userSaveAddress_json_1 = __importDefault(require("../schemas/userSaveAddress.json"));
 const userSaveCourtAddress_json_1 = __importDefault(require("../schemas/userSaveCourtAddress.json"));
 const geocode_api_1 = __importDefault(require("../helpers/geocode_api"));
+const availabilities_1 = __importDefault(require("../models/availabilities"));
 // GET /users  () => {user}
 // returns user as {username, firstName, lastName, skillLevel}
 // authorization none
@@ -42,7 +45,14 @@ router.get('/:username', function (req, res, next) {
         try {
             const username = req.params.username;
             const response = yield users_1.default.get(username);
-            res.json({ userInfo: response });
+            const userInfo = Object.assign({}, response[0]);
+            delete userInfo.availability;
+            const availabilities = [];
+            for (let userInfo of response) {
+                availabilities.push(userInfo.availability);
+            }
+            userInfo.availabilites = availabilities;
+            res.json({ userInfo: userInfo });
         }
         catch (error) {
             return next(error);
@@ -51,7 +61,7 @@ router.get('/:username', function (req, res, next) {
 });
 // PATCH  /users/:username/saveAddress  (address) => null
 // accepts address, saves user address by updating user table
-// authorization required; user logged in
+// authorization required; correct user logged in
 router.patch('/:username/save_address', function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -71,9 +81,9 @@ router.patch('/:username/save_address', function (req, res, next) {
         }
     });
 });
-// POST /users/:username/save_court_address   (address) => null
+// POST /users/:username/save_court_address   {courtName, address} => null
 // accpets address, saves court address in database
-// authorization required: user logged in
+// authorization required: correct user logged in
 router.post('/:username/save_court_address', function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -82,13 +92,12 @@ router.post('/:username/save_court_address', function (req, res, next) {
             try {
                 const response = yield users_1.default.get(username);
                 if (!response[0]) {
-                    throw new expressError_1.BadRequestError("User not found.");
+                    throw new expressError_2.NotFoundError("User not found.");
                 }
                 userId = response[0].userId;
             }
             catch (error) {
-                console.error("Error fetching user data:", error.message);
-                throw new expressError_1.BadRequestError("Failed to fetch user information.");
+                return next(error);
             }
             const validator = jsonschema_1.default.validate(req.body, userSaveCourtAddress_json_1.default);
             if (!validator.valid) {
@@ -104,16 +113,42 @@ router.post('/:username/save_court_address', function (req, res, next) {
             }
             catch (error) {
                 console.error("Error retrieving lat/lng:", error.message);
-                throw new expressError_1.BadRequestError("Failed to find court. Please check the address.");
+                return next(error);
             }
             try {
-                yield users_1.default.saveCourtAddress(userId, courtName, address, lat, lng);
+                yield court_locations_1.default.saveCourtAddress(userId, courtName, address, lat, lng);
                 res.json({ message: "Court location saved" });
             }
             catch (error) {
-                console.error("Error saving court address:", error.message);
-                throw new expressError_1.BadRequestError(error.message);
+                return next(error);
             }
+        }
+        catch (error) {
+            return next(error);
+        }
+    });
+});
+// POST users/:username/save_availabilities   {availabilites} => ()
+// availibilities is a string array, saves all user availabilities
+// authorization required: correct user logged in
+router.post('/:username/save_availabilities', function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { username } = req.params;
+        let userId;
+        try {
+            const response = yield users_1.default.get(username);
+            if (!response[0]) {
+                throw new expressError_1.BadRequestError("User not found.");
+            }
+            userId = response[0].userId;
+        }
+        catch (error) {
+            return next(error);
+        }
+        const { availabilities } = req.body;
+        try {
+            yield availabilities_1.default.saveAvailabilities(userId, availabilities);
+            res.json({ message: "Availabilities saved" });
         }
         catch (error) {
             return next(error);

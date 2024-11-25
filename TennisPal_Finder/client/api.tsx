@@ -76,6 +76,17 @@ class TennisApi {
     return res;
   }
 
+
+  static async saveAvailabilities(username: string, availabilities: string[]) {
+    let data = {
+      availabilities
+    }
+
+    let res = await this.request(`users/${username}/save_availabilities`, data, 'post')
+    return res;
+  }
+  
+
 }
 
 export default TennisApi;

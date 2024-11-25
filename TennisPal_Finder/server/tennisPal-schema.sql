@@ -34,9 +34,7 @@ CREATE TABLE court_locations (
 CREATE TABLE user_availabilities (
     availability_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
-    day_of_week VARCHAR(10) NOT NULL, -- e.g., Monday, Tuesday
-    start_time TIME NOT NULL,
-    end_time TIME NOT NULL
+    day_of_week VARCHAR(10) NOT NULL -- e.g., Monday, Tuesday
 );
 
 -- Create messages table (references user_id from users)
@@ -51,6 +49,6 @@ CREATE TABLE messages (
 
 -- Indexes to optimize query performance
 CREATE INDEX idx_user_id_on_court_locations ON court_locations(user_id);
-CREATE INDEX idx_user_id_on_user_availability ON user_availabilities(user_id);
+CREATE INDEX idx_user_id_on_user_availabilities ON user_availabilities(user_id);
 CREATE INDEX idx_sender_id_on_messages ON messages(sender_id);
 CREATE INDEX idx_receiver_id_on_messages ON messages(receiver_id);

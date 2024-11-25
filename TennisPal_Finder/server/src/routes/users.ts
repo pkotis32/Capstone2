@@ -1,12 +1,15 @@
 import jsonschema from 'jsonschema';
 import {createToken} from '../helpers/tokens';
 import Users from '../models/users';
+import Court_locations from '../models/court_locations'
 import express from 'express';
 const router = express.Router();
 import { BadRequestError } from '../expressError';
+import { NotFoundError } from '../expressError';
 import saveAddressSchema from '../schemas/userSaveAddress.json'
 import saveCourtAddressSchema from '../schemas/userSaveCourtAddress.json'
 import getLatLng from '../helpers/geocode_api';
+import Availabilities from '../models/availabilities';
 
 
 // GET /users  () => {user}
@@ -42,9 +45,18 @@ router.get('/', async function (req, res, next) {
 // authorization required: none
 router.get('/:username', async function(req, res, next) {
   try {
-    const username = req.params.username;
+    const username: string = req.params.username;
     const response = await Users.get(username);
-    res.json({userInfo: response})
+    
+    const userInfo = {...response[0]}
+    delete userInfo.availability
+    const availabilities: string[] = [];
+    for (let userInfo of response) {
+      availabilities.push(userInfo.availability);
+    }
+    userInfo.availabilites = availabilities;
+
+    res.json({userInfo: userInfo})
   } catch (error) {
     return next(error);
   }  
@@ -53,7 +65,7 @@ router.get('/:username', async function(req, res, next) {
 
 // PATCH  /users/:username/saveAddress  (address) => null
 // accepts address, saves user address by updating user table
-// authorization required; user logged in
+// authorization required; correct user logged in
 router.patch('/:username/save_address', async function (req, res, next) {
   try {
 
@@ -77,9 +89,9 @@ router.patch('/:username/save_address', async function (req, res, next) {
 
 
 
-// POST /users/:username/save_court_address   (address) => null
+// POST /users/:username/save_court_address   {courtName, address} => null
 // accpets address, saves court address in database
-// authorization required: user logged in
+// authorization required: correct user logged in
 router.post('/:username/save_court_address', async function (req, res, next) {
   try {
     const { username } = req.params;
@@ -88,12 +100,11 @@ router.post('/:username/save_court_address', async function (req, res, next) {
     try {
       const response = await Users.get(username);
       if (!response[0]) {
-        throw new BadRequestError("User not found.");
+        throw new NotFoundError("User not found.");
       }
       userId = response[0].userId;
     } catch (error: any) {
-      console.error("Error fetching user data:", error.message);
-      throw new BadRequestError("Failed to fetch user information.");
+      return next(error)
     }
 
     const validator = jsonschema.validate(req.body, saveCourtAddressSchema);
@@ -111,15 +122,14 @@ router.post('/:username/save_court_address', async function (req, res, next) {
       lng = location.lng;
     } catch (error: any) {
       console.error("Error retrieving lat/lng:", error.message);
-      throw new BadRequestError("Failed to find court. Please check the address.");
+      return next(error);
     }
 
     try {
-      await Users.saveCourtAddress(userId, courtName, address, lat, lng);
+      await Court_locations.saveCourtAddress(userId, courtName, address, lat, lng);
       res.json({ message: "Court location saved" });
     } catch (error: any) {
-      console.error("Error saving court address:", error.message);
-      throw new BadRequestError(error.message);
+      return next(error);
     }
 
   } catch (error) {
@@ -127,5 +137,36 @@ router.post('/:username/save_court_address', async function (req, res, next) {
   }
 
 });
+
+
+
+// POST users/:username/save_availabilities   {availabilites} => ()
+// availibilities is a string array, saves all user availabilities
+// authorization required: correct user logged in
+router.post('/:username/save_availabilities', async function (req, res, next) {
+  
+  const { username } = req.params;
+
+  let userId;
+  try {
+    const response = await Users.get(username);
+    if (!response[0]) {
+      throw new BadRequestError("User not found.");
+    }
+    userId = response[0].userId;
+  } catch (error: any) {
+    return next(error);
+  }
+
+  const {availabilities}: {availabilities: string[]} = req.body
+
+  try {
+    await Availabilities.saveAvailabilities(userId, availabilities);
+    res.json({message: "Availabilities saved"})
+  } catch (error) {
+    return next(error);
+  }
+
+})
 
 export default router

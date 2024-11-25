@@ -10,16 +10,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("../db");
-// handles methods that interact with the court locations table
-class Court_locations {
-    static saveCourtAddress(userId, courtName, courtAddress, latitude, longitude) {
+class Availabilities {
+    static saveAvailabilities(user_id, availabilities) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield db_1.db.query(`
-        INSERT INTO court_locations
-        (user_id, court_name, court_address, court_latitude, court_longitude)
-        VALUES ($1, $2, $3, $4, $5)`, [userId, courtName, courtAddress, latitude, longitude]);
+            for (let availability of availabilities) {
+                const result = yield db_1.db.query(`
+        INSERT INTO user_availabilities
+        (user_id, day_of_week)
+        VALUES ($1, $2)`, [user_id, availability]);
+            }
         });
     }
-    ;
 }
-exports.default = Court_locations;
+exports.default = Availabilities;
