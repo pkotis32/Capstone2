@@ -47,7 +47,7 @@ const Step2 = () => {
   
   return (
     <div className="step2">
-      <div className="container w-50 mt-5">
+      <div className="container mt-5">
         <div className="step">
           <h5 className='text-primary p-3'>Step 2/3</h5>
         </div>

@@ -40,11 +40,11 @@ const Step1 = () => {
   
   return (
     <div className="step1">
-      <div className="container w-50 mt-5">
+      <div className="container mt-5">
         <div className="step">
           <h5 className='text-primary p-3'>Step 1/3</h5>
         </div>
-        <h1>Enter Your Home Address</h1>
+        <h2>Enter Your Home Address</h2>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form_elements">
             <label>
