@@ -1,21 +1,21 @@
-.step {
+.step1 .step {
   display: flex;
   justify-content: flex-start;
 }
 
-.container {
+.step1 .container {
   background-color: #f9f9f9; 
 }
 
 
 /* Center the form on the page */
-form {
+.step1 form {
   display: flex;
   justify-content: center;
 }
 
 /* The container holding the form elements */
-.form_elements {
+.step1 .form_elements {
   width: 50%; /* Fixed width for the container */
   padding: 20px; /* Optional padding */
   background-color: #f9f9f9; /* Optional background color */
@@ -23,7 +23,7 @@ form {
 }
 
 /* Style for each label and input pair */
-label {
+.step1 label {
   display: flex;
   flex-direction: column;
   width: 100%; /* Ensures the label takes full width */

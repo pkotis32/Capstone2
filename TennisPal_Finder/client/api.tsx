@@ -66,11 +66,12 @@ class TennisApi {
   }
 
   
-  static async saveCourtAddress(username: string, address: string) {
+  static async saveCourtAddress(username: string, courtName: string, address: string) {
     let data = {
+      courtName,
       address
     }
-
+    
     let res = await this.request(`users/${username}/save_court_address`, data, 'post')
     return res;
   }

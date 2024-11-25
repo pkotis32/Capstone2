@@ -9,6 +9,7 @@ import Login from './Login'
 import Signup from './Signup'
 import Step1 from './Step1'
 import Step2 from './Step2'
+import Step3 from './Step3'
 import UserContext from './UserContext'
 
 
@@ -77,8 +78,9 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/login" element={<Login login={login} />}></Route>
             <Route path="/signup" element={<Signup signup={signup} />}></Route>
-            <Route path="/finish/step1" element={<Step1 />}></Route>
-            <Route path="/finish/step2" element={<Step2 />}></Route>
+            <Route path="/setup_profile/step1" element={<Step1 />}></Route>
+            <Route path="/setup_profile/step2" element={<Step2 />}></Route>
+            <Route path="/setup_profile/step3" element={<Step3 />}></Route>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

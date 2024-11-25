@@ -17,11 +17,16 @@ const BASE_API = 'https://maps.googleapis.com/maps/api/geocode/json';
 const API_KEY = 'AIzaSyBJH3OKaWYrm3RiNkabZCCfyfM9Z2m0PLk';
 function getLatLng(address) {
     return __awaiter(this, void 0, void 0, function* () {
-        const encodedAddress = encodeURIComponent(address);
-        const response = yield axios_1.default.get(`${BASE_API}?address=${encodedAddress}&key=${API_KEY}`);
-        let data = response.data;
-        const location = data.results[0].geometry.location;
-        return location;
+        try {
+            const encodedAddress = encodeURIComponent(address);
+            const response = yield axios_1.default.get(`${BASE_API}?address=${encodedAddress}&key=${API_KEY}`);
+            let data = response.data;
+            const location = data.results[0].geometry.location;
+            return location;
+        }
+        catch (error) {
+            throw new Error("Failed to get court location");
+        }
     });
 }
 exports.default = getLatLng;

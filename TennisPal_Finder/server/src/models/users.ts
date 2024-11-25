@@ -108,14 +108,26 @@ class Users {
     
     static async get(username: string) {
         const result = await db.query(
-            `SELECT user_id AS "userId"
+            `SELECT users.user_id AS "userId",
+                    users.username,
+                    users.first_name AS "firstName",
+                    users.last_name AS "lastName",
+                    users.address AS "homeAddress",
+                    users.latitude AS "homeLat",
+                    users.longitude AS "homeLng",
+                    court_name AS "courtName",
+                    court_locations.court_address AS "courtAddress",
+                    court_locations.court_latitude AS "courtLat",
+                    court_locations.court_longitude AS "courtLng",
+                    user_availabilities.day_of_week AS "dayOfWeek"
             FROM users
+            LEFT JOIN court_locations ON users.user_id = court_locations.user_id
+            LEFT JOIN user_availabilities ON users.user_id = user_availabilities.user_id
             WHERE username = $1`,
             [username]
         );
 
-        let {userId} = result.rows[0];
-        return userId;
+        return result.rows
     }
 
 
@@ -128,6 +140,15 @@ class Users {
         );
     }
 
+
+    static async saveCourtAddress(userId: number, courtName: string, courtAddress: string, latitude: number, longitude: number) {
+        const result = await db.query(`
+            INSERT INTO court_locations
+            (user_id, court_name, court_address, court_latitude, court_longitude)
+            VALUES ($1, $2, $3, $4, $5)`,
+            [userId, courtName, courtAddress, latitude, longitude]
+        )
+    };
 }
 
 export default Users;

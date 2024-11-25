@@ -1,11 +1,11 @@
 /* Center the form on the page */
-form {
+.signup form {
   display: flex;
   justify-content: center;
 }
 
 /* The container holding the form elements */
-.form_elements {
+.signup .form_elements {
   width: 30%; /* Fixed width for the container */
   padding: 20px; /* Optional padding */
   background-color: #f9f9f9; /* Optional background color */
@@ -13,9 +13,14 @@ form {
 }
 
 /* Style for each label and input pair */
-label {
+.signup label {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%; /* Ensures the label takes full width */
   margin-bottom: 10px; /* Optional spacing between inputs */
+}
+
+.signup input {
+  width: 70%;
 }

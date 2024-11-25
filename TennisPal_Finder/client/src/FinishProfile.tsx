@@ -12,7 +12,7 @@ const FinishProfile = () => {
   const navigate = useNavigate();
 
   const handleFinish = () => {
-    navigate('/finish/step1')
+    navigate('/setup_profile/step1')
   }
 
   const handleDontFinish =() => {

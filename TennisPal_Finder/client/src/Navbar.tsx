@@ -27,7 +27,7 @@ const NavigationBar = ({user, logout}: logoutProps) => {
         {user ? (
           <>
             <NavItem>
-              <a href='/' onClick={(e) => handleLogout(e)} className="me-3">Logout</a>
+              <a href='/' onClick={(e) => handleLogout(e)} className="me-3">Logout {user}</a>
             </NavItem>
           </>
         ): (

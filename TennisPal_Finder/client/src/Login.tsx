@@ -40,21 +40,23 @@ const Login = ({login}: loginProps) => {
   
   return (
     <>
-      <h1>Login</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="form_elements">
-          <label>
-            <div>Username:</div>
-            <input className="mb-2" name = "username" value = {formData.username} onChange = {(e) => handleChange(e)}  />
-          </label>
-          <label>
-            <div>Password:</div>
-            <input className="mb-2" name = "password" value = {formData.password} onChange = {(e) => handleChange(e)} type="password" />
-          </label>
-          <button className = "btn w-50 btn-primary">Login</button>
-          {error ? (<div className="text-danger">{error}</div>) : null}
-        </div>
-      </form>
+      <div className="login">
+        <h1>Login</h1>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div className="form_elements">
+            <label>
+              <div>Username:</div>
+              <input className="mb-2" name = "username" value = {formData.username} onChange = {(e) => handleChange(e)}  />
+            </label>
+            <label>
+              <div>Password:</div>
+              <input className="mb-2" name = "password" value = {formData.password} onChange = {(e) => handleChange(e)} type="password" />
+            </label>
+            <button className = "btn w-50 btn-primary">Login</button>
+            {error ? (<div className="text-danger">{error}</div>) : null}
+          </div>
+        </form>
+      </div>
     </>
   )
 }

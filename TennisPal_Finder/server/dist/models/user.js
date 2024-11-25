@@ -55,8 +55,6 @@ class User {
             if (duplicateCheck.rows[0]) {
                 throw new expressError_1.BadRequestError(`Duplicate username: ${username}`);
             }
-            console.log(password);
-            console.log(config_1.BCRYPT_WORK_FACTOR);
             const hashedPassword = yield bcrypt_1.default.hash(password, config_1.BCRYPT_WORK_FACTOR);
             const result = yield db_1.db.query(`INSERT INTO users 
             (username, password, first_name, last_name, email, skill_level)
