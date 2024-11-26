@@ -7,17 +7,21 @@ interface loginProps {
 }
 
 
+// login form
 const Login = ({login}: loginProps) => {
 
   const navigate = useNavigate();
 
+  // saves error message for login form
   const [error, setError] = useState("");
 
+  // initializes form data in state
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   })
-
+  
+  // updates the form data when it is changed
   const handleChange = (e: any) => {
     const {name, value} = e.target;
     setFormData(prevState => ({
@@ -26,12 +30,15 @@ const Login = ({login}: loginProps) => {
     }))
   }
 
+  // submits the form data and attempts to login the user
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    // if user successfully logs in, display success message
     try {
       await login(formData.username, formData.password)
-      navigate('/', {state: {message: `Welcome back ${formData.username}!`}}); 
+      navigate('/', {state: {success: `Welcome back ${formData.username}!`}}); 
     }
+    // if not, display error message
     catch (error: any) {
       setError(error[0])
     }

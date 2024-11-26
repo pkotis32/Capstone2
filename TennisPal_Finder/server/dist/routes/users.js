@@ -23,10 +23,11 @@ const userSaveAddress_json_1 = __importDefault(require("../schemas/userSaveAddre
 const userSaveCourtAddress_json_1 = __importDefault(require("../schemas/userSaveCourtAddress.json"));
 const geocode_api_1 = __importDefault(require("../helpers/geocode_api"));
 const availabilities_1 = __importDefault(require("../models/availabilities"));
+const auth_1 = require("../middleware/auth");
 // GET /users  () => {user}
 // returns user as {username, firstName, lastName, skillLevel}
-// authorization none
-router.get('/', function (req, res, next) {
+// authorization required: logged in
+router.get('/', auth_1.ensureLoggedIn, function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const users = yield users_1.default.findAll();
@@ -37,10 +38,10 @@ router.get('/', function (req, res, next) {
         }
     });
 });
-// GET /users:username  () => userId
-// returns the userId from the given username
-// authorization required: none
-router.get('/:username', function (req, res, next) {
+// GET /users:username  () => {userInfo}
+// userInfo is object that contains {userId, username, firstName, lastName, homeAddress, homeLat, homeLng, courtName, courtLat, courtLng, availabilities}
+// authorization required: logged in 
+router.get('/:username', auth_1.ensureLoggedIn, function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const username = req.params.username;
@@ -62,7 +63,7 @@ router.get('/:username', function (req, res, next) {
 // PATCH  /users/:username/saveAddress  (address) => null
 // accepts address, saves user address by updating user table
 // authorization required; correct user logged in
-router.patch('/:username/save_address', function (req, res, next) {
+router.patch('/:username/save_address', auth_1.ensureCorrectUser, function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { username } = req.params;
@@ -84,7 +85,7 @@ router.patch('/:username/save_address', function (req, res, next) {
 // POST /users/:username/save_court_address   {courtName, address} => null
 // accpets address, saves court address in database
 // authorization required: correct user logged in
-router.post('/:username/save_court_address', function (req, res, next) {
+router.post('/:username/save_court_address', auth_1.ensureCorrectUser, function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { username } = req.params;
@@ -131,7 +132,7 @@ router.post('/:username/save_court_address', function (req, res, next) {
 // POST users/:username/save_availabilities   {availabilites} => ()
 // availibilities is a string array, saves all user availabilities
 // authorization required: correct user logged in
-router.post('/:username/save_availabilities', function (req, res, next) {
+router.post('/:username/save_availabilities', auth_1.ensureCorrectUser, function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const { username } = req.params;
         let userId;

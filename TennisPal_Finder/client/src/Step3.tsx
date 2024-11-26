@@ -3,12 +3,21 @@ import './Step3.css'
 import TennisApi from '../api.js'
 import UserContext from './UserContext.jsx'
 import {useNavigate} from 'react-router-dom'
+import TokenContext from './TokenContext.js'
 
-const Step3 = () => {
+
+interface FinishProfileProps {
+  handleFinishProfile: () => void;
+}
+
+// form to save the user's available days to play
+const Step3 = ({handleFinishProfile}: FinishProfileProps) => {
 
   const username = useContext(UserContext);
+  const token = useContext(TokenContext);
   const navigate = useNavigate();
   
+  // initializes available days 
   const [availabilities, setAvailabilities] = useState({
     Monday: false, 
     Tuesday: false,
@@ -19,6 +28,7 @@ const Step3 = () => {
     Sunday: false
   });
 
+  // updates the checkbox when it is clicked on
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setAvailabilities((prevState) => ({
@@ -27,16 +37,19 @@ const Step3 = () => {
     }));
   };
 
-  
+  // filters the form data to create an array the only contains the available days of the user
   let days = Object.entries(availabilities)
       .filter(([day, value]) => value)
       .map(([day]) => day);
 
+
+  // saves the user's availabilities in the database
   const handleSubmit = async(e: any) => {
     e.preventDefault();
     try {
-      await TennisApi.saveAvailabilities(username, days)
-      navigate('/');
+      await TennisApi.saveAvailabilities(username, days, token)
+      handleFinishProfile();
+      navigate('/', {state: {success: "Finished creating your profile"}});
     } catch (error) {
       console.error(error);
     }

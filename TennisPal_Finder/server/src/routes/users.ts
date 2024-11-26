@@ -10,13 +10,14 @@ import saveAddressSchema from '../schemas/userSaveAddress.json'
 import saveCourtAddressSchema from '../schemas/userSaveCourtAddress.json'
 import getLatLng from '../helpers/geocode_api';
 import Availabilities from '../models/availabilities';
+import { ensureCorrectUser, ensureLoggedIn } from '../middleware/auth';
 
 
 // GET /users  () => {user}
 // returns user as {username, firstName, lastName, skillLevel}
-// authorization none
+// authorization required: logged in
 
-router.get('/', async function (req, res, next) {
+router.get('/', ensureLoggedIn, async function (req, res, next) {
 
   interface UserInfo {
     username: string,
@@ -40,10 +41,10 @@ router.get('/', async function (req, res, next) {
 });
 
 
-// GET /users:username  () => userId
-// returns the userId from the given username
-// authorization required: none
-router.get('/:username', async function(req, res, next) {
+// GET /users:username  () => {userInfo}
+// userInfo is object that contains {userId, username, firstName, lastName, homeAddress, homeLat, homeLng, courtName, courtLat, courtLng, availabilities}
+// authorization required: logged in 
+router.get('/:username', ensureLoggedIn, async function(req, res, next) {
   try {
     const username: string = req.params.username;
     const response = await Users.get(username);
@@ -66,7 +67,7 @@ router.get('/:username', async function(req, res, next) {
 // PATCH  /users/:username/saveAddress  (address) => null
 // accepts address, saves user address by updating user table
 // authorization required; correct user logged in
-router.patch('/:username/save_address', async function (req, res, next) {
+router.patch('/:username/save_address', ensureCorrectUser, async function (req, res, next) {
   try {
 
     const {username} = req.params
@@ -92,7 +93,7 @@ router.patch('/:username/save_address', async function (req, res, next) {
 // POST /users/:username/save_court_address   {courtName, address} => null
 // accpets address, saves court address in database
 // authorization required: correct user logged in
-router.post('/:username/save_court_address', async function (req, res, next) {
+router.post('/:username/save_court_address', ensureCorrectUser, async function (req, res, next) {
   try {
     const { username } = req.params;
 
@@ -143,7 +144,7 @@ router.post('/:username/save_court_address', async function (req, res, next) {
 // POST users/:username/save_availabilities   {availabilites} => ()
 // availibilities is a string array, saves all user availabilities
 // authorization required: correct user logged in
-router.post('/:username/save_availabilities', async function (req, res, next) {
+router.post('/:username/save_availabilities', ensureCorrectUser, async function (req, res, next) {
   
   const { username } = req.params;
 
@@ -169,4 +170,4 @@ router.post('/:username/save_availabilities', async function (req, res, next) {
 
 })
 
-export default router
+export default router;

@@ -2,19 +2,21 @@ import React, {useState, useContext} from 'react'
 import './Step2.css'
 import {useNavigate} from 'react-router-dom'
 import UserContext from './UserContext.jsx'
+import TokenContext from './TokenContext.js'
 import TennisApi from '../api.js'
 
 
 
-
+// form to save the user's preferred court location
 const Step2 = () => {
   
-  const username = useContext(UserContext)
+  const username = useContext(UserContext);
+  const token = useContext(TokenContext);
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
 
-
+  // initializes form data
   const [formData, setFormData] = useState({
     courtName: '',
     courtAddress: '',
@@ -23,7 +25,7 @@ const Step2 = () => {
     zipCode: '',
   });
   
-
+  // updates form data when it is changed
   const handleChange = (e: any) => {
     const {name, value} = e.target;
     setFormData(prevState => ({
@@ -32,12 +34,12 @@ const Step2 = () => {
     }));
   };
 
-  
+  // attempts to save the user's court location in the database
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       const courtAddress = `${formData.courtName}, ${formData.city}, ${formData.state}`;
-      await TennisApi.saveCourtAddress(username, formData.courtName, courtAddress);
+      await TennisApi.saveCourtAddress(username, formData.courtName, courtAddress, token);
       navigate('/setup_profile/step3')
     } catch (error: any) {
       setError(error[0])

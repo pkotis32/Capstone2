@@ -67,8 +67,6 @@ class Users {
             throw new BadRequestError(`Duplicate username: ${username}`);
         }
 
-        console.log(password)
-        console.log(BCRYPT_WORK_FACTOR);
 
 
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);

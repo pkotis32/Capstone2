@@ -56,7 +56,9 @@ class TennisApi {
   }
 
 
-  static async saveAddress(username: string, address: string) {
+  static async saveAddress(username: string, address: string, token: string) {
+    
+    this.token = token;
     let data = {
       address
     }
@@ -66,7 +68,9 @@ class TennisApi {
   }
 
   
-  static async saveCourtAddress(username: string, courtName: string, address: string) {
+  static async saveCourtAddress(username: string, courtName: string, address: string, token: string) {
+    
+    this.token = token;
     let data = {
       courtName,
       address
@@ -77,7 +81,9 @@ class TennisApi {
   }
 
 
-  static async saveAvailabilities(username: string, availabilities: string[]) {
+  static async saveAvailabilities(username: string, availabilities: string[], token: string) {
+    
+    this.token = token
     let data = {
       availabilities
     }

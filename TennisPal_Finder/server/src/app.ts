@@ -3,15 +3,16 @@ import {NotFoundError} from './expressError';
 import cors from 'cors';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/users';
-import apiRoutes from './routes/google_api'
+import {authenticateJWT} from "./middleware/auth";
+
+
 
 const app = express();
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
+app.use(authenticateJWT);
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
-app.use('/api', apiRoutes);
-
 
 
 app.get("/", (req: Request, res: Response) => {

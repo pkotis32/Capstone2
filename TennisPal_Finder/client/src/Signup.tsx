@@ -7,13 +7,15 @@ interface signupProps {
   signup: (args: signupArgs) => Promise<string | null | undefined>; 
 }
 
-
+// signup form
 const Signup = ({signup}: signupProps) => {
 
   const navigate = useNavigate();
 
+  // saves error message for signup form
   const [error, setError] = useState("");
 
+  // initializes form data
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -23,6 +25,7 @@ const Signup = ({signup}: signupProps) => {
     skillLevel: 'beginner'
   })
   
+  // updates form data when it is changed
   const handleChange = (e: any) => {
     const {name, value} = e.target;
     setFormData(prevState => ({
@@ -31,6 +34,7 @@ const Signup = ({signup}: signupProps) => {
     }))
   }
 
+  // attempts to sign in user
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
