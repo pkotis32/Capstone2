@@ -1,4 +1,4 @@
-\echo 'Delete and recreate jobly db?'
+\echo 'Delete and recreate tennisPal db?'
 \prompt 'Return for yes or control-C to cancel > ' foo
 
 DROP DATABASE tennis_pal;
@@ -8,7 +8,7 @@ CREATE DATABASE tennis_pal;
 \i tennisPal-schema.sql
 \i tennisPal-seed.sql
 
-\echo 'Delete and recreate jobly_test db?'
+\echo 'Delete and recreate tennisPal_test db?'
 \prompt 'Return for yes or control-C to cancel > ' foo
 
 DROP DATABASE tennis_pal_test;

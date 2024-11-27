@@ -1,26 +1,32 @@
+.step1 .step {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.step1 .container {
+  background-color: #f9f9f9; 
+  width: 40%;
+}
+
+
 /* Center the form on the page */
-.login form {
+.step1 form {
   display: flex;
   justify-content: center;
 }
 
 /* The container holding the form elements */
-.login .form_elements {
-  width: 30%; /* Fixed width for the container */
+.step1 .form_elements {
+  width: 50%; /* Fixed width for the container */
   padding: 20px; /* Optional padding */
   background-color: #f9f9f9; /* Optional background color */
   border-radius: 8px; /* Optional border radius */
 }
 
 /* Style for each label and input pair */
-.login label {
+.step1 label {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%; /* Ensures the label takes full width */
   margin-bottom: 10px; /* Optional spacing between inputs */
-}
-
-.login input {
-  width: 70%;
 }
