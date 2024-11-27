@@ -1,6 +1,6 @@
 import {db} from '../db';
 
-
+// handles methods that interact with the availabilities table
 class Availabilities {
 
   static async saveAvailabilities (user_id: number, availabilities: string[]) {

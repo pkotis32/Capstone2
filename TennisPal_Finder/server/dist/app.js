@@ -8,6 +8,7 @@ const expressError_1 = require("./expressError");
 const cors_1 = __importDefault(require("cors"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const users_1 = __importDefault(require("./routes/users"));
+const messages_1 = __importDefault(require("./routes/messages"));
 const auth_2 = require("./middleware/auth");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)()); // Enable CORS for all routes
@@ -15,6 +16,7 @@ app.use(express_1.default.json());
 app.use(auth_2.authenticateJWT);
 app.use('/auth', auth_1.default);
 app.use('/users', users_1.default);
+app.use('/messages', messages_1.default);
 app.get("/", (req, res) => {
     res.json("Hello from Express!");
 });

@@ -3,6 +3,7 @@ import {NotFoundError} from './expressError';
 import cors from 'cors';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/users';
+import messageRoutes from './routes/messages'
 import {authenticateJWT} from "./middleware/auth";
 
 
@@ -13,6 +14,8 @@ app.use(express.json());
 app.use(authenticateJWT);
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
+app.use('/messages', messageRoutes);
+
 
 
 app.get("/", (req: Request, res: Response) => {

@@ -1,5 +1,5 @@
 .user-card {
-  width: 75%;
+  width: 60%;
   margin: 1rem auto;
   padding: 1rem;
   border-radius: 10px;
@@ -50,4 +50,8 @@
 
 .distance {
   text-align: start;
+}
+
+button.message {
+  margin-left: auto;
 }

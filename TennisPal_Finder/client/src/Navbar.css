@@ -1,0 +1,16 @@
+.tab {
+  padding: 10px 20px;
+  background-color: #b0aaaa; /* Light background color */
+  color: black; /* Text color */
+  border-radius: 5px;
+  text-decoration: none; /* Remove the underline */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+ .tab:hover {
+  background-color: #797777; /* Darker background on hover */
+  color: black;
+ } 
+
+
+

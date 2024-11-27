@@ -103,6 +103,20 @@ class TennisApi {
     let res = await this.request("users", data);
     return res;
   } 
+
+
+  // sends a message to a user
+  static async sendMessage(sender: string, receiver: string, message: string, token: string) {
+    this.token = token
+    let data = {
+      receiver,
+      message
+    }
+    console.log(sender)
+
+    let res = await this.request(`messages/${sender}`, data, 'post');
+    return res
+  }
   
 
 }

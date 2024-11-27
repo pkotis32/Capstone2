@@ -10,17 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("../db");
-// handles methods that interact with the availabilities table
-class Availabilities {
-    static saveAvailabilities(user_id, availabilities) {
+// handles methods that interact with the messages table
+class Messages {
+    static sendMessage(senderId, receiverId, message) {
         return __awaiter(this, void 0, void 0, function* () {
-            for (let availability of availabilities) {
-                const result = yield db_1.db.query(`
-        INSERT INTO user_availabilities
-        (user_id, day_of_week)
-        VALUES ($1, $2)`, [user_id, availability]);
-            }
+            const result = db_1.db.query(`
+      INSERT INTO messages
+      (sender_id, receiver_id, message_text)
+      VALUES ($1, $2, $3)`, [senderId, receiverId, message]);
         });
     }
 }
-exports.default = Availabilities;
+exports.default = Messages;

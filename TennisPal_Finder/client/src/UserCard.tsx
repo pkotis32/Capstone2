@@ -1,5 +1,6 @@
 import {Card, CardBody, CardTitle, CardText} from 'reactstrap'
 import './UserCard.css'
+import {useNavigate} from 'react-router-dom'
 
 interface UserInfo {
   userId: number,
@@ -18,6 +19,14 @@ interface userCardProps {
 
 
 const UserCard = ({user}: userCardProps) => {
+  
+  const navigate = useNavigate();
+  
+  const handleClick = (username: string) => {
+    navigate(`/message/${username}`)
+  }
+
+
   return (
     <div>
       <Card className="user-card">
@@ -33,6 +42,7 @@ const UserCard = ({user}: userCardProps) => {
             </CardTitle>
             <CardText className="user-skill">{user.skillLevel}</CardText>
           </div>
+          <button onClick={() => handleClick(user.username)} className="btn btn-info message" >Message</button>
         </div>
         <CardBody>
           <div className="availabilities">

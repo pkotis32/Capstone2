@@ -14,6 +14,7 @@ import UserContext from './UserContext'
 import TokenContext from './TokenContext'
 import ProtectedRoute from './ProtectedRoute'
 import Users from './Users'
+import Message from './Message'
 
 
 
@@ -123,6 +124,11 @@ function App() {
             <Route path="/users" element={
               <ProtectedRoute currUser={currUser}>
                 <Users/>
+              </ProtectedRoute> }> 
+            </Route>
+            <Route path="/message/:username" element={
+              <ProtectedRoute currUser={currUser}>
+                <Message/>
               </ProtectedRoute> }> 
             </Route>
           </Routes>

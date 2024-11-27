@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import { useLocation } from 'react-router-dom';
 import FinishProfile from './FinishProfile';
+import UserContext from './UserContext';
 
 interface HomeProps {
   finishedProfile: boolean;
@@ -13,6 +14,7 @@ const Home = ({finishedProfile}: HomeProps) => {
   const location = useLocation();
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const username = useContext(UserContext);
 
   // if the state changes on the location object, then display those messages 
   useEffect(() => {
@@ -38,7 +40,7 @@ const Home = ({finishedProfile}: HomeProps) => {
     <>
       {success ? (<p className="bg-success text-white p-3">{success}</p>) : null}
       {error ? (<p className="bg-danger text-white p-3">{error}</p>) : null}
-      {!finishedProfile? <FinishProfile/> : null}
+      {!finishedProfile && username? <FinishProfile/> : null}
     </>
   )
 }
