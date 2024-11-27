@@ -29,21 +29,25 @@ const UserCard = ({user}: userCardProps) => {
           />
           <div>
             <CardTitle className="user-name">
-              {user.firstName} {user.lastName[0]}.
+              {user.firstName} {user.lastName[0]}
             </CardTitle>
             <CardText className="user-skill">{user.skillLevel}</CardText>
           </div>
         </div>
         <CardBody>
-          <CardText>
-            <strong>Available on:</strong>
-          </CardText>
-          <ul className="availability-list">
-            {user.availabilities.map((day, index) => (
-              <li key={index}>{day}</li>
-            ))}
-          </ul>
-          <CardText>
+          <div className="availabilities">
+            <CardText>
+              <strong>Available on:</strong>
+            </CardText>
+            <CardText>
+              <ul className="availability-list">
+                {user.availabilities.map((day, index) => (
+                  <li className="ms-2" key={index}>{day}</li>
+                ))}
+              </ul>
+            </CardText>
+          </div>
+          <CardText className="distance">
             <strong>Distance:</strong> {user.distance} miles
           </CardText>
         </CardBody>
