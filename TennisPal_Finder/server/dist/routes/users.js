@@ -24,14 +24,49 @@ const userSaveCourtAddress_json_1 = __importDefault(require("../schemas/userSave
 const geocode_api_1 = __importDefault(require("../helpers/geocode_api"));
 const availabilities_1 = __importDefault(require("../models/availabilities"));
 const auth_1 = require("../middleware/auth");
-// GET /users  () => {user}
-// returns user as {username, firstName, lastName, skillLevel}
+const distance_1 = __importDefault(require("../helpers/distance"));
+// GET /users  () => [{user}]
+// returns array of user objects {username, firstName, lastName, skillLevel, distance}
+// calculates the distance from each user to the fetched user
 // authorization required: logged in
 router.get('/', auth_1.ensureLoggedIn, function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
+        let currLat;
+        let currLng;
+        let currUser;
         try {
-            const users = yield users_1.default.findAll();
-            res.json({ users });
+            currUser = req.query.username;
+            const response = yield users_1.default.get(currUser);
+            ({ homeLat: currLat, homeLng: currLng } = response[0]);
+        }
+        catch (error) {
+            return next(error);
+        }
+        try {
+            const rows = yield users_1.default.findAll(currUser);
+            const usersMap = new Map();
+            for (let user of rows) {
+                // retrieve each users location to calculate the distance from the current user
+                let userLat = user.homeLat;
+                let userLng = user.homeLng;
+                let dist = (0, distance_1.default)(currLat, currLng, userLat, userLng);
+                if (usersMap.has(user.userId)) {
+                    usersMap.get(user.userId).availabilities.push(user.availability);
+                }
+                else {
+                    usersMap.set(user.userId, {
+                        userId: user.userId,
+                        username: user.username,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        skillLevel: user.skillLevel,
+                        distance: dist,
+                        availabilities: [user.availability]
+                    });
+                }
+            }
+            const usersArray = Array.from(usersMap.values());
+            res.json({ users: usersArray });
         }
         catch (error) {
             return next(error);

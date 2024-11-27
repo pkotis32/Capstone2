@@ -12,7 +12,8 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 import UserContext from './UserContext'
 import TokenContext from './TokenContext'
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute'
+import Users from './Users'
 
 
 
@@ -82,7 +83,6 @@ function App() {
       const decoded = jwtDecode(token) as myJwtPayload;
       setCurrUser(decoded.username);
       const finishedProfile = localStorage.getItem(`${decoded.username}_finishedProfile`);
-      console.log(finishedProfile);
       setFinishedProfile(finishedProfile === "true");
     }
     else {
@@ -118,6 +118,11 @@ function App() {
             <Route path="/setup_profile/step3" element={
               <ProtectedRoute currUser={currUser}>
                 <Step3 handleFinishProfile={handleFinishProfile}/>
+              </ProtectedRoute> }> 
+            </Route>
+            <Route path="/users" element={
+              <ProtectedRoute currUser={currUser}>
+                <Users/>
               </ProtectedRoute> }> 
             </Route>
           </Routes>

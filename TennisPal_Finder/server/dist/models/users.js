@@ -65,20 +65,26 @@ class Users {
         });
     }
     // gets all profile info for all users, including courtLocations and availabilities
-    static findAll() {
+    static findAll(username) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield db_1.db.query(`SELECT username,
-                    first_name AS "firstName",
-                    last_name AS "lastName",
-                    skill_level AS "skillLevel",
+            const result = yield db_1.db.query(`SELECT users.user_id AS "userId",
+                    users.username,
+                    users.first_name AS "firstName",
+                    users.last_name AS "lastName",
+                    users.skill_level AS "skillLevel",
+                    users.address AS "homeAddress",
+                    users.latitude AS "homeLat",
+                    users.longitude AS "homeLng",
                     court_name AS "courtName",
-                    address,
-                    latitude,
-                    longitude
+                    court_locations.court_address AS "courtAddress",
+                    court_locations.court_latitude AS "courtLat",
+                    court_locations.court_longitude AS "courtLng",
+                    user_availabilities.day_of_week AS "availability"
             FROM users
-            LEFT JOIN court_locations
-            ON users.user_id = court_locations.user_id
-            ORDER BY username`);
+            LEFT JOIN court_locations ON users.user_id = court_locations.user_id
+            LEFT JOIN user_availabilities ON users.user_id = user_availabilities.user_id
+            WHERE users.username != $1
+            ORDER BY username`, [username]);
             return result.rows;
         });
     }
@@ -88,6 +94,7 @@ class Users {
                     users.username,
                     users.first_name AS "firstName",
                     users.last_name AS "lastName",
+                    users.skill_level AS "skillLevel",
                     users.address AS "homeAddress",
                     users.latitude AS "homeLat",
                     users.longitude AS "homeLng",

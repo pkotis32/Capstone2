@@ -11,28 +11,84 @@ import saveCourtAddressSchema from '../schemas/userSaveCourtAddress.json'
 import getLatLng from '../helpers/geocode_api';
 import Availabilities from '../models/availabilities';
 import { ensureCorrectUser, ensureLoggedIn } from '../middleware/auth';
+import haversineDistance from '../helpers/distance'
 
 
-// GET /users  () => {user}
-// returns user as {username, firstName, lastName, skillLevel}
+// GET /users  () => [{user}]
+// returns array of user objects {username, firstName, lastName, skillLevel, distance}
+// calculates the distance from each user to the fetched user
 // authorization required: logged in
 
 router.get('/', ensureLoggedIn, async function (req, res, next) {
 
+  let currLat: number;
+  let currLng: number;
+  let currUser: string;
+  try {
+    currUser = req.query.username as string;
+    const response = await Users.get(currUser);
+    ({homeLat: currLat, homeLng: currLng} = response[0]);
+  } catch (error) {
+    return next(error)
+  }
+  
+
   interface UserInfo {
+    userId: number,
     username: string,
     firstName: string,
     lastName: string,
     skillLevel: string,
-    courtName: string,
-    address: string,
-    latitude: number,
-    longitude: number
+    distance: number,
+    availabilities: string[]
   }
 
   try {
-    const users: UserInfo = await Users.findAll();
-    res.json({users})
+    const rows: {
+      userId: number,
+      username: string,
+      firstName: string,
+      lastName: string,
+      skillLevel: string,
+      homeAddress: string,
+      homeLat: number,
+      homeLng: number,
+      courtName: string,
+      courtAddress: string,
+      courtLat: number,
+      courtLng: number,
+      availability: string
+    }[] = await Users.findAll(currUser);
+
+    const usersMap = new Map<number, UserInfo>();
+
+    for (let user of rows) {
+      
+      // retrieve each users location to calculate the distance from the current user
+      let userLat = user.homeLat;
+      let userLng = user.homeLng;
+      
+      let dist = haversineDistance(currLat, currLng, userLat, userLng);
+
+      if (usersMap.has(user.userId)) {
+        usersMap.get(user.userId)!.availabilities.push(user.availability);
+      }
+      else {
+        usersMap.set(user.userId, {
+          userId: user.userId,
+          username: user.username,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          skillLevel: user.skillLevel,
+          distance: dist,
+          availabilities: [user.availability]
+        })
+      }
+    }
+
+    const usersArray = Array.from(usersMap.values());
+
+    res.json({users: usersArray})
   } catch (error) {
     return next(error)
   }

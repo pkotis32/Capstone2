@@ -3,16 +3,13 @@ import { AxiosError } from 'axios';
 
 const BASE_URL = "http://localhost:3001";
 
-/** API Class.
- *
- * Static class tying together methods used to get/send to to the API.
- *
- */
 
+// API class containing static methods sent to the API
 class TennisApi {
-  // the token for interactive with the API will be stored here.
+  // saves the current token to be used with requests when necessary
   static token: string;
 
+  // builds and sends each request based on the type that the function is given
   static async request(endpoint: string, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 
@@ -31,6 +28,7 @@ class TennisApi {
     }
   }
 
+  // signs the user in
   static async signup(username: string, password: string, email: string, firstName: string, lastName: string, skillLevel: string) {
     let data = {
       username, 
@@ -45,6 +43,7 @@ class TennisApi {
     return res;
   }
 
+  // logs the user in
   static async login(username: string, password: string) {
     let data = {
       username,
@@ -56,6 +55,7 @@ class TennisApi {
   }
 
 
+  // saves the users home address
   static async saveAddress(username: string, address: string, token: string) {
     
     this.token = token;
@@ -67,7 +67,7 @@ class TennisApi {
     return res;
   }
 
-  
+  // saves the users preferred court location
   static async saveCourtAddress(username: string, courtName: string, address: string, token: string) {
     
     this.token = token;
@@ -81,9 +81,10 @@ class TennisApi {
   }
 
 
+  // saves the users availabilities
   static async saveAvailabilities(username: string, availabilities: string[], token: string) {
     
-    this.token = token
+    this.token = token;
     let data = {
       availabilities
     }
@@ -91,6 +92,17 @@ class TennisApi {
     let res = await this.request(`users/${username}/save_availabilities`, data, 'post')
     return res;
   }
+
+  // retrieves all saved users
+  static async getUsers(username: string, token: string) {
+    this.token = token;
+    let data = {
+      username
+    }
+
+    let res = await this.request("users", data);
+    return res;
+  } 
   
 
 }
