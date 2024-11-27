@@ -66,6 +66,7 @@ router.get('/', auth_1.ensureLoggedIn, function (req, res, next) {
                 }
             }
             const usersArray = Array.from(usersMap.values());
+            usersArray.sort((a, b) => a.distance - b.distance);
             res.json({ users: usersArray });
         }
         catch (error) {
