@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonschema_1 = __importDefault(require("jsonschema"));
 const tokens_1 = require("../helpers/tokens");
-const user_1 = require("../models/user");
+const users_1 = __importDefault(require("../models/users"));
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const userAuth_json_1 = __importDefault(require("../schemas/userAuth.json"));
@@ -32,7 +32,7 @@ router.post('/token', function (req, res, next) {
                 throw new expressError_1.BadRequestError(errs);
             }
             const { username, password } = req.body;
-            const user = yield user_1.User.authenticate(username, password);
+            const user = yield users_1.default.authenticate(username, password);
             const token = (0, tokens_1.createToken)(user);
             res.json({ token });
         }
@@ -52,7 +52,7 @@ router.post('/register', function (req, res, next) {
                 const errs = validator.errors.map(e => e.stack);
                 throw new expressError_1.BadRequestError(errs);
             }
-            const newUser = yield user_1.User.register(Object.assign({}, req.body));
+            const newUser = yield users_1.default.register(Object.assign({}, req.body));
             const token = (0, tokens_1.createToken)(newUser);
             res.status(201).json({ token });
         }

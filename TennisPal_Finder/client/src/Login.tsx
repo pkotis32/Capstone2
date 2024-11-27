@@ -7,17 +7,21 @@ interface loginProps {
 }
 
 
+// login form
 const Login = ({login}: loginProps) => {
 
   const navigate = useNavigate();
 
+  // saves error message for login form
   const [error, setError] = useState("");
 
+  // initializes form data in state
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   })
-
+  
+  // updates the form data when it is changed
   const handleChange = (e: any) => {
     const {name, value} = e.target;
     setFormData(prevState => ({
@@ -26,12 +30,15 @@ const Login = ({login}: loginProps) => {
     }))
   }
 
+  // submits the form data and attempts to login the user
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    // if user successfully logs in, display success message
     try {
       await login(formData.username, formData.password)
-      navigate('/', {state: {message: `Welcome back ${formData.username}!`}}); 
+      navigate('/', {state: {success: `Welcome back ${formData.username}!`}}); 
     }
+    // if not, display error message
     catch (error: any) {
       setError(error[0])
     }
@@ -40,21 +47,23 @@ const Login = ({login}: loginProps) => {
   
   return (
     <>
-      <h1>Login</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="form_elements">
-          <label>
-            Username:
-            <input className="ms-3 mb-2" name = "username" value = {formData.username} onChange = {(e) => handleChange(e)}  />
-          </label>
-          <label>
-            Password:
-            <input className="ms-3 mb-2" name = "password" value = {formData.password} onChange = {(e) => handleChange(e)} type="password" />
-          </label>
-          <button className = "btn btn-primary">Login</button>
-          {error ? (<div className="text-danger">{error}</div>) : null}
-        </div>
-      </form>
+      <div className="login">
+        <h1>Login</h1>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div className="form_elements">
+            <label>
+              <div>Username:</div>
+              <input className="mb-2" name = "username" value = {formData.username} onChange = {(e) => handleChange(e)}  />
+            </label>
+            <label>
+              <div>Password:</div>
+              <input className="mb-2" name = "password" value = {formData.password} onChange = {(e) => handleChange(e)} type="password" />
+            </label>
+            <button className = "btn w-50 btn-primary">Login</button>
+            {error ? (<div className="text-danger">{error}</div>) : null}
+          </div>
+        </form>
+      </div>
     </>
   )
 }

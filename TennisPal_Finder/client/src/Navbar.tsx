@@ -8,10 +8,13 @@ interface logoutProps {
   user: string;
 }
 
+
+// navbar component
 const NavigationBar = ({user, logout}: logoutProps) => {
   
   const navigate = useNavigate();
 
+  // logout function for when the logout link is clicked
   const handleLogout = (e: any) => {
     e.preventDefault();
     logout();
@@ -27,7 +30,7 @@ const NavigationBar = ({user, logout}: logoutProps) => {
         {user ? (
           <>
             <NavItem>
-              <a href='/' onClick={(e) => handleLogout(e)}>Logout</a>
+              <a href='/' onClick={(e) => handleLogout(e)} className="me-3">Logout {user}</a>
             </NavItem>
           </>
         ): (

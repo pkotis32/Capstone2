@@ -2,12 +2,17 @@ import express, { Request, Response, NextFunction } from "express";
 import {NotFoundError} from './expressError';
 import cors from 'cors';
 import authRoutes from './routes/auth';
+import userRoutes from './routes/users';
+import {authenticateJWT} from "./middleware/auth";
+
+
 
 const app = express();
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
+app.use(authenticateJWT);
 app.use('/auth', authRoutes);
-
+app.use('/users', userRoutes);
 
 
 app.get("/", (req: Request, res: Response) => {
