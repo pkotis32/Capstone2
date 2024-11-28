@@ -5,7 +5,7 @@ import Messages from '../models/messages';
 import {ensureCorrectUser} from '../middleware/auth';
 
 
-// POST /messages  {message} => () 
+// POST /messages/:username  {message} => () 
 // saves message in database, message object passed in contains {sender, receiver, message}
 // authorization required: correct user logged in
 router.post('/:username', ensureCorrectUser, async (req, res, next) => {
@@ -33,5 +33,40 @@ router.post('/:username', ensureCorrectUser, async (req, res, next) => {
 
 })
 
+
+// GET /messages/:username   (receiver) => [{message}]
+// the sender is passed as a query param
+// returns array of message objects {sender, receiver, message, sentAt}
+// authorization required: correct user logged in
+router.get('/:username', ensureCorrectUser, async (req, res, next) => {
+
+  interface messageResponse {
+    messageId: number,
+    senderId: number,
+    receiverId: number,
+    messageText: string,
+    sentAt: string;
+  }
+
+  const {senderId, receiverId} = req.query;
+  const sender = Number(senderId);
+  const receiver = Number(receiverId);
+
+  
+  try {
+    const response: messageResponse[] = await Messages.getMessages(sender, receiver)
+    
+    let newResponse = response.map(message => {
+      const fullDate = new Date(message.sentAt).toLocaleDateString();
+      const time = new Date(message.sentAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const newResponse = {...message, sentAt: `${fullDate} ${time}`}
+      return newResponse;
+    })
+
+    res.json(newResponse)
+  } catch (error) {
+    return next(error)
+  }
+})
 
 export default router

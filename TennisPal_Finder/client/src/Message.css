@@ -1,0 +1,15 @@
+.list-group-item {
+  border: none;
+}
+
+.messages {
+  width: 60%;
+  margin: 0 auto;
+  max-height: 400px;   /* Set a fixed height */
+  overflow-y: auto;    /* Enable vertical scrolling if content overflows */
+  border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+  padding: 1rem;       /* Optional: Add some padding */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+  border-radius: 10px; /* Optional: Add rounded corners */
+  background-color: #f9f9f9; /* Optional: Set a background color */
+}

@@ -1,41 +1,103 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect, useRef} from 'react'
 import { useParams } from 'react-router-dom';
 import TennisApi from '../api';
 import UserContext from './UserContext';
 import TokenContext from './TokenContext';
+import MessageCard from './MessageCard';
+import {ListGroup, ListGroupItem} from 'reactstrap'
+import './Message.css'
 
+
+
+interface MessageInfo {
+  messageId: number,
+  senderId: number,
+  receiverId: number, 
+  messageText: string,
+  sentAt: string
+}
+
+// component that allows a user to message another user, and shows all messages between the users
 const Message = () => {
   
+
+  
+
   const sender = useContext(UserContext);
   const token = useContext(TokenContext)
   // retrieve the username from the url params
   const {username: receiver} = useParams<{username: string}>();
   
+  // save the sender and receiver ids in state
+  const [senderId, setSenderId] = useState<number>(0);
+  const [receiverId, setReceiverId] = useState<number>(0);
+
   // save the message in state
-  const [message, setMessage] = useState<string>("")
+  const [newMessage, setNewMessage] = useState<string>("")
+  // save the existing messages in state
+  const [currMessages, setCurrMessages] = useState<MessageInfo[]>([])
+
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  // Scroll to the bottom when messages are updated
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [currMessages]); // Trigger when the messages change
+
+  
+
+  // retrieve sender and receiver ids
+  useEffect(() => {
+    try {
+      const getIds = async () => {
+        const response1 = await TennisApi.getUser(sender, token);
+        const response2 = await TennisApi.getUser(receiver!, token);
+        let senderId = response1.userInfo.userId;
+        let receiverId = response2.userInfo.userId;
+        setSenderId(senderId);
+        setReceiverId(receiverId);
+        const messages: MessageInfo[] = await TennisApi.getMessages(senderId, sender, receiverId, token);
+        setCurrMessages(messages);
+      }
+      getIds();
+    } catch (error) {
+      console.error(error);
+    }  
+  }, [newMessage])
+  
+
 
   // update the message as the user types it
   const handleChange = (e: any) => {
-    setMessage(e.target.value);
+    setNewMessage(e.target.value);
   }
   
-
+  // save the message in the database
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    await TennisApi.sendMessage(sender, receiver!, message, token);
-    setMessage("");
+    await TennisApi.sendMessage(sender, receiver!, newMessage, token);
+    setNewMessage("");
   }
 
   return (
     <div>
       <h1>Message {receiver}</h1>
-      <div className="messages mt-5">
-      
+      <div className="messages mt-5 ref={messagesContainerRef}">
+        <ListGroup>
+          {currMessages.map((message) => (
+            <ListGroupItem key={message.messageId}>
+              <MessageCard message={message} senderId={senderId} receiverId={receiverId}></MessageCard>
+            </ListGroupItem>
+          ))}
+        </ListGroup>
+        <div ref={messagesEndRef} /> {/* This is the scroll reference */} 
       </div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={message}
+          value={newMessage}
           onChange={handleChange}
           placeholder="Enter your message"
           required

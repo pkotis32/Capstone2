@@ -14,7 +14,8 @@ import { ensureCorrectUser, ensureLoggedIn } from '../middleware/auth';
 import haversineDistance from '../helpers/distance'
 
 
-// GET /users  () => [{user}]
+// GET /users  (username) => [{user}]
+// username passed as a param
 // returns array of user objects {username, firstName, lastName, skillLevel, distance}
 // calculates the distance from each user to the fetched user
 // authorization required: logged in

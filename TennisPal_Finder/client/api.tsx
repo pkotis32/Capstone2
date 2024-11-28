@@ -104,6 +104,14 @@ class TennisApi {
     return res;
   } 
 
+  // returns the information for a user
+  static async getUser(username: string, token: string) {
+    this.token = token;
+    
+    let res = await this.request(`users/${username}`)
+    return res;
+  }
+
 
   // sends a message to a user
   static async sendMessage(sender: string, receiver: string, message: string, token: string) {
@@ -112,10 +120,21 @@ class TennisApi {
       receiver,
       message
     }
-    console.log(sender)
 
     let res = await this.request(`messages/${sender}`, data, 'post');
     return res
+  }
+
+  // gets all messages between two users
+  static async getMessages(senderId: number, sender: string, receiverId: number, token: string) {
+    this.token = token;
+    let data = {
+      senderId,
+      receiverId
+    }
+
+    let res = await this.request(`messages/${sender}`, data, 'get');
+    return res;
   }
   
 
