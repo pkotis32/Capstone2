@@ -84,8 +84,8 @@ const Message = () => {
   return (
     <div>
       <h1>Message {receiver}</h1>
-      <div className="messages mt-5 ref={messagesContainerRef}">
-        <ListGroup>
+      <div className="mt-5 ref={messagesContainerRef} mb-3">
+        <ListGroup className="messages">
           {currMessages.map((message) => (
             <ListGroupItem key={message.messageId}>
               <MessageCard message={message} senderId={senderId} receiverId={receiverId}></MessageCard>
@@ -95,14 +95,16 @@ const Message = () => {
         <div ref={messagesEndRef} /> {/* This is the scroll reference */} 
       </div>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={newMessage}
-          onChange={handleChange}
-          placeholder="Enter your message"
-          required
-        />
-        <button className="btn btn-primary ms-3"type="submit">Send</button>
+        <div className="message-area">
+          <input
+            type="text"
+            value={newMessage}
+            onChange={handleChange}
+            placeholder="Enter your message"
+            required
+          />
+          <button className="btn btn-primary ms-3"type="submit">Send</button>
+        </div>
       </form>
     </div>
   )

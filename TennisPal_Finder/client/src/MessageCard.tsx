@@ -21,9 +21,9 @@ interface MessageCardProps {
 
 const MessageCard = ({message, senderId, receiverId}: MessageCardProps) => {
   return (
-    <div className={`${senderId == message.senderId ? "sender" : "receiver"} messageCard`}>
-      <Card className="user-card">
-        <CardBody>
+    <div className={`${senderId == message.senderId ? "sender" : "receiver"}`}>
+      <Card className="message-container">
+        <CardBody className="message">
             <CardText>
               <span>{message.messageText}</span>
             </CardText>

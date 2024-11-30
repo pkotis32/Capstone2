@@ -1,42 +1,47 @@
-.messageCard .card-body {
+.messages .card-body {
   width: 100%;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.messageCard.sender .card-body {
+.sender .message{
   background-color: rgb(56, 154, 239);
 }
 
-.messageCard.receiver .card-body {
+.receiver .message{
   background-color: rgb(197, 199, 201);
 }
 
-.messageCard.receiver {
-  display: flex;
-  border: none
+.receiver {
+ display: flex;
 }
 
-.messageCard.sender {
+.sender {
   display: flex;
   justify-content: end;
   border: none
 }
 
-.messageCard .user-card {
-  border: none;
-}
 
-.messageCard.receiver .time {
+.receiver .time {
   text-align: end;
   font-size: 0.7rem;
 }
 
-.messageCard.sender .time {
+.sender .time {
   text-align: start;
   font-size: 0.7rem;
 }
+
+.list-group .list-group-item {
+  border-bottom: none;
+}
+
+.messages .message-container {
+  border: none;
+}
+
 
 
 

@@ -28,12 +28,11 @@ const UserCard = ({user}: userCardProps) => {
 
 
   return (
-    <div className="userCard">
+    <div>
       <Card className="user-card">
         <div className="user-card-header">
           <img 
             src=""
-            alt={`${user.firstName} ${user.lastName}`} 
             className="profile-picture" 
           />
           <div>
