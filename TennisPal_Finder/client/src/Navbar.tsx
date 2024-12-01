@@ -1,6 +1,7 @@
 import React from 'react'
 import {Navbar, Nav, NavItem} from 'reactstrap'
 import {NavLink, useNavigate} from 'react-router-dom'
+import './Navbar.css'
 
 
 interface logoutProps {
@@ -29,6 +30,12 @@ const NavigationBar = ({user, logout}: logoutProps) => {
 
         {user ? (
           <>
+            <NavItem>
+              <NavLink to="/chats" className="me-5 tab">Messages</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/users" className="me-5 tab">Find Pals</NavLink>
+            </NavItem>
             <NavItem>
               <a href='/' onClick={(e) => handleLogout(e)} className="me-3">Logout {user}</a>
             </NavItem>

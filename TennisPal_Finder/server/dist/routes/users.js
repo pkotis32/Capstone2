@@ -25,7 +25,8 @@ const geocode_api_1 = __importDefault(require("../helpers/geocode_api"));
 const availabilities_1 = __importDefault(require("../models/availabilities"));
 const auth_1 = require("../middleware/auth");
 const distance_1 = __importDefault(require("../helpers/distance"));
-// GET /users  () => [{user}]
+// GET /users  (username) => [{user}]
+// username passed as a param
 // returns array of user objects {username, firstName, lastName, skillLevel, distance}
 // calculates the distance from each user to the fetched user
 // authorization required: logged in

@@ -1,0 +1,50 @@
+.messages .card-body {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sender .message{
+  background-color: rgb(56, 154, 239);
+}
+
+.receiver .message{
+  background-color: rgb(197, 199, 201);
+}
+
+.receiver {
+ display: flex;
+}
+
+.sender {
+  display: flex;
+  justify-content: end;
+  border: none
+}
+
+
+.receiver .time {
+  text-align: end;
+  font-size: 0.7rem;
+}
+
+.sender .time {
+  text-align: start;
+  font-size: 0.7rem;
+}
+
+.list-group .list-group-item {
+  border-bottom: none;
+}
+
+.messages .message-container {
+  border: none;
+}
+
+
+
+
+
+
+

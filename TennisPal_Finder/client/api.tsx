@@ -103,6 +103,59 @@ class TennisApi {
     let res = await this.request("users", data);
     return res;
   } 
+
+  // returns the information for a user
+  static async getUser(username: string, token: string) {
+    this.token = token;
+    
+    let res = await this.request(`users/${username}`)
+    return res;
+  }
+
+
+  // sends a message to a user
+  static async sendMessage(sender: string, receiver: string, message: string, token: string) {
+    this.token = token
+    let data = {
+      receiver,
+      message
+    }
+
+    let res = await this.request(`messages/${sender}`, data, 'post');
+    return res
+  }
+
+  // gets all messages between two users
+  static async getMessages(senderId: number, sender: string, receiverId: number, token: string) {
+    this.token = token;
+    let data = {
+      senderId,
+      receiverId
+    }
+
+    let res = await this.request(`messages/${sender}`, data, 'get');
+    return res;
+  }
+
+  // gets all users that a current user has a chat with
+  static async getUserChats(senderId: number, sender: string, token: string) {
+    this.token = token;
+    let data = {
+      senderId
+    }
+
+    let res = await this.request(`messages/chats/${sender}`, data);
+    return res;
+  }
+
+
+  // get all saved court locations
+  static async getCourtLocations(token: string) {
+    this.token = token
+
+    let res = await this.request(`court_locations`);
+    return res;
+  }
   
 
 }

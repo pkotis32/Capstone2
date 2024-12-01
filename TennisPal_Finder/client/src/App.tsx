@@ -14,6 +14,9 @@ import UserContext from './UserContext'
 import TokenContext from './TokenContext'
 import ProtectedRoute from './ProtectedRoute'
 import Users from './Users'
+import Message from './Message'
+import UserMessages from './UserMessages'
+import TennisCourts from './TennisCourts';
 
 
 
@@ -123,6 +126,21 @@ function App() {
             <Route path="/users" element={
               <ProtectedRoute currUser={currUser}>
                 <Users/>
+              </ProtectedRoute> }> 
+            </Route>
+            <Route path="/send_message/:username" element={
+              <ProtectedRoute currUser={currUser}>
+                <Message/>
+              </ProtectedRoute> }> 
+            </Route>
+            <Route path="/chats" element={
+              <ProtectedRoute currUser={currUser}>
+                <UserMessages/>
+              </ProtectedRoute> }> 
+            </Route>
+            <Route path="/tennis_courts" element={
+              <ProtectedRoute currUser={currUser}>
+                <TennisCourts/>
               </ProtectedRoute> }> 
             </Route>
           </Routes>

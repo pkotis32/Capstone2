@@ -1,5 +1,5 @@
 .user-card {
-  width: 75%;
+  width: 60%;
   margin: 1rem auto;
   padding: 1rem;
   border-radius: 10px;
@@ -7,14 +7,14 @@
   background-color: #ffffff;
 }
 
-.user-card-header {
+.user-card .user-card-header {
   display: flex;
   align-items: center;
   width: 100%;
   margin-bottom: 1rem;
 }
 
-.profile-picture {
+.user-card .profile-picture {
   width: 75px;
   height: 75px;
   border-radius: 50%;
@@ -23,31 +23,35 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.user-name {
+.user-card .user-name {
   font-size: 1.25rem;
   font-weight: bold;
   margin: 0;
 }
 
-.user-skill {
+.user-card .user-skill {
   font-size: 1rem;
   color: #6c757d;
 }
 
-.availability-list {
+.user-card .availability-list {
   list-style: none;
   padding: 0;
   display: flex;
 }
 
-.availability-list li {
+.user-card .availability-list li {
   margin-bottom: 0.5rem;
 }
 
-.availabilities {
+.user-card .availabilities {
   display: flex;
 }
 
-.distance {
+.user-card .distance {
   text-align: start;
+}
+
+.user-card .message {
+  margin-left: auto;
 }
