@@ -69,4 +69,21 @@ router.get('/:username', ensureCorrectUser, async (req, res, next) => {
   }
 })
 
+
+// GET /messages/chats/:username   () => [users]
+// the sender is passed as a query param
+// an array of users that the sender has a chat with is returned
+// authorization required: correct user logged in
+router.get('/chats/:username', ensureCorrectUser, async (req, res, next) => {
+  const {senderId} = req.query;
+  const sender = Number(senderId);
+
+  try {
+    const response: string[] = await Messages.getUserChats(sender);
+    res.json({users: response})
+  } catch (error) {
+    return next(error);
+  }
+})  
+
 export default router

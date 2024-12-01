@@ -32,6 +32,26 @@ class Messages {
 
     return result.rows;
   }
+
+  // get all users that a user has a chat with
+  static async getUserChats(currUserId: number) {
+
+    const result = await db.query(`
+      SELECT DISTINCT u.username
+      FROM users u
+      JOIN messages m ON u.user_id = (
+          CASE
+              WHEN m.sender_id = $1 THEN m.receiver_id
+              ELSE m.sender_id
+          END
+      )
+      WHERE $1 IN (m.sender_id, m.receiver_id)`,
+      [currUserId])
+
+      return result.rows;
+  }
+
+  
 }
 
 

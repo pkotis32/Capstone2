@@ -55,7 +55,7 @@ const Users = () => {
       <h1>List of nearby users</h1>
       <ListGroup>
     
-        {users && users? (
+        {users ? (
           users.map((user) => (
             <ListGroupItem key={user.userId}>
               <UserCard user={user}></UserCard>

@@ -31,6 +31,9 @@ const NavigationBar = ({user, logout}: logoutProps) => {
         {user ? (
           <>
             <NavItem>
+              <NavLink to="/chats" className="me-5 tab">Messages</NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink to="/users" className="me-5 tab">Find Pals</NavLink>
             </NavItem>
             <NavItem>

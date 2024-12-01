@@ -37,19 +37,8 @@ const Message = () => {
   // save the existing messages in state
   const [currMessages, setCurrMessages] = useState<MessageInfo[]>([])
 
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
-  // Scroll to the bottom when messages are updated
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [currMessages]); // Trigger when the messages change
-
-  
-
-  // retrieve sender and receiver ids
-  useEffect(() => {
+   // retrieve sender and receiver ids
+   useEffect(() => {
     try {
       const getIds = async () => {
         const response1 = await TennisApi.getUser(sender, token);
@@ -66,7 +55,18 @@ const Message = () => {
       console.error(error);
     }  
   }, [newMessage])
-  
+
+
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  // Scroll to the bottom when messages are updated
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      setTimeout(() => {
+        messagesEndRef.current!.scrollIntoView({ behavior: "smooth" });
+      }, 0);
+    }
+  }, [currMessages]);
 
 
   // update the message as the user types it
@@ -91,8 +91,8 @@ const Message = () => {
               <MessageCard message={message} senderId={senderId} receiverId={receiverId}></MessageCard>
             </ListGroupItem>
           ))}
+          <div ref={messagesEndRef} />
         </ListGroup>
-        <div ref={messagesEndRef} /> {/* This is the scroll reference */} 
       </div>
       <form onSubmit={handleSubmit}>
         <div className="message-area">

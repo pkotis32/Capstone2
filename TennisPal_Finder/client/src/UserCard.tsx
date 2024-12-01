@@ -23,7 +23,7 @@ const UserCard = ({user}: userCardProps) => {
   const navigate = useNavigate();
   
   const handleClick = (username: string) => {
-    navigate(`/message/${username}`)
+    navigate(`/send_message/${username}`)
   }
 
 
