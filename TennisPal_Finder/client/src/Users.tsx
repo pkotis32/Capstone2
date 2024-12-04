@@ -25,6 +25,7 @@ const Users = () => {
   // retrieve the username and token values from context
   const username = useContext(UserContext);
   const token = useContext(TokenContext);
+  const [loading, setLoading] = useState<boolean>()
   
 
   // when componet renders, retrieve all users and store them in state
@@ -41,9 +42,19 @@ const Users = () => {
     fetchUsers();
   }, [])
 
-  // allow time for users to be set
-  if (users.length === 0) {
-    return <div>Loading users...</div>; 
+  useEffect(() => {
+    setLoading(true);
+    // Simulate a loading time of 0.5 seconds
+    const timer = setTimeout(() => {
+      setLoading(false);  // Hide loading screen after 0.5 seconds
+    }, 500);
+
+    return () => clearTimeout(timer);  // Cleanup the timer on unmount
+  }, [users]);
+
+
+  if (loading) {
+    return <div>Loading users...</div>; // Show loading screen
   }
 
 
@@ -51,13 +62,13 @@ const Users = () => {
 
   
   return (
-    <div>
-      <h1>List of nearby users</h1>
+    <div style={{backgroundColor: "#f0f0f0", height: "100vh"}}>
+      {users.length == 0 ? (<h1>No users nearby</h1>) : (<h1>List of nearby users</h1>)}
       <ListGroup>
     
         {users ? (
           users.map((user) => (
-            <ListGroupItem key={user.userId}>
+            <ListGroupItem key={user.userId} style={{backgroundColor: "#f0f0f0", border: "none"}}>
               <UserCard user={user}></UserCard>
             </ListGroupItem>
           ))

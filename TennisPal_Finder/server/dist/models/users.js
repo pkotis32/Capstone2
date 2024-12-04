@@ -83,7 +83,7 @@ class Users {
             FROM users
             LEFT JOIN court_locations ON users.user_id = court_locations.user_id
             LEFT JOIN user_availabilities ON users.user_id = user_availabilities.user_id
-            WHERE users.username != $1
+            WHERE users.username != $1 AND users.username != 'admin'
             ORDER BY username`, [username]);
             return result.rows;
         });

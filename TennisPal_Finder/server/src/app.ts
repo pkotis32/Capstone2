@@ -4,6 +4,7 @@ import cors from 'cors';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/users';
 import messageRoutes from './routes/messages'
+import courtLocationRoutes from "./routes/court_locations";
 import {authenticateJWT} from "./middleware/auth";
 
 
@@ -15,7 +16,7 @@ app.use(authenticateJWT);
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/messages', messageRoutes);
-
+app.use('/court_locations', courtLocationRoutes);
 
 
 app.get("/", (req: Request, res: Response) => {

@@ -47,7 +47,7 @@ const Login = ({login}: loginProps) => {
   
   return (
     <>
-      <div className="login">
+      <div className="login" style={{backgroundColor: "#f0f0f0", height: "100vh"}}>
         <h1>Login</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form_elements">
@@ -60,7 +60,7 @@ const Login = ({login}: loginProps) => {
               <input className="mb-2" name = "password" value = {formData.password} onChange = {(e) => handleChange(e)} type="password" />
             </label>
             <button className = "btn w-50 btn-primary">Login</button>
-            {error ? (<div className="text-danger">{error}</div>) : null}
+            {error ? (<span className="text-danger" style={{display: "block"}}>{error}</span>) : null}
           </div>
         </form>
       </div>

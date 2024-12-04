@@ -10,7 +10,20 @@ class Court_locations {
         VALUES ($1, $2, $3, $4, $5)`,
         [userId, courtName, courtAddress, latitude, longitude]
     )
-};
+  };
+
+  
+  static async getCourtLocations() {
+    const result = await db.query(`
+      SELECT court_name,
+             court_latitude,
+             court_longitude
+      FROM court_locations
+    `)
+    
+    return result.rows;
+
+  }
 
 }
 

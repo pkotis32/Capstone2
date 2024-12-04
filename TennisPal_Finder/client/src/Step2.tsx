@@ -48,8 +48,8 @@ const Step2 = () => {
   }
   
   return (
-    <div className="step2">
-      <div className="container mt-5">
+    <div className="step2 pt-5" style={{backgroundColor: "#f0f0f0", height: "100vh"}}>
+      <div className="container">
         <div className="step">
           <h5 className='text-primary p-3'>Step 2/3</h5>
         </div>

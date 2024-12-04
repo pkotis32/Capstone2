@@ -1,0 +1,17 @@
+.finish-profile-container {
+  position: absolute;
+  z-index: 2;
+  background-color: rgb(252, 102, 102);
+  left: 15%;
+  right: 15%;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.finish-profile-container button {
+  background-color: rgb(234, 234, 241);
+}
+
+.finish-profile-container button:hover {
+  background-color: rgb(234, 234, 241);
+}

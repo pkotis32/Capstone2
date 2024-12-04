@@ -1,0 +1,7 @@
+.map-container {
+  width: 80%; /* Full width of the parent container */
+  margin: 20px auto; /* Add some margin around the map */
+  border: 2px solid #ccc; /* Optional: Adds a light border around the map */
+  border-radius: 10px; /* Optional: Rounded corners for the map container */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+}

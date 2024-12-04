@@ -21,5 +21,16 @@ class Court_locations {
         });
     }
     ;
+    static getCourtLocations() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield db_1.db.query(`
+      SELECT court_name,
+             court_latitude,
+             court_longitude
+      FROM court_locations
+    `);
+            return result.rows;
+        });
+    }
 }
 exports.default = Court_locations;

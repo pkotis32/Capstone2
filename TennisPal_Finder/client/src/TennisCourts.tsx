@@ -1,11 +1,14 @@
 import React from 'react'
 import CourtsMap from './CourtsMap'
+import './TennisCourts.css'
 
 const TennisCourts = () => {
   return (
-    <div>
+    <div style={{backgroundColor: "#f0f0f0", height: "100vh"}}>
       <h2>Tennis Courts Near You</h2>
-      <CourtsMap></CourtsMap>
+      <div className='map-container'>
+        <CourtsMap></CourtsMap>
+      </div>
     </div>
   )
 }

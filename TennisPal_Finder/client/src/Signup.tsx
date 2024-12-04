@@ -49,7 +49,7 @@ const Signup = ({signup}: signupProps) => {
   
   return (
    <>
-    <div className='signup'>
+    <div className='signup' style={{backgroundColor: "#f0f0f0", height: "100vh"}}>
       <h1>Signup</h1>
       <form onSubmit={(e) => {handleSubmit(e)}}>
         <div className="form_elements">
@@ -90,8 +90,8 @@ const Signup = ({signup}: signupProps) => {
               </select>
             </div>
           </label>
-          <button className="btn btn-primary">Signup</button>
-          {error ? (<div className="text-danger">{error}</div>) : null}
+          <button className="btn btn-primary w-50">Signup</button>
+          {error ? (<span className="text-danger" style={{display: "block"}}>{error}</span>) : null}
         </div> 
       </form>
     </div>
