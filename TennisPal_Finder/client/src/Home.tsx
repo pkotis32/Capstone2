@@ -2,6 +2,7 @@ import React, {useEffect, useState, useContext} from 'react'
 import { useLocation } from 'react-router-dom';
 import FinishProfile from './FinishProfile';
 import UserContext from './UserContext';
+import './Home.css'
 
 interface HomeProps {
   finishedProfile: boolean;
@@ -38,9 +39,12 @@ const Home = ({finishedProfile}: HomeProps) => {
 
   return (
     <>
-      {success ? (<p className="bg-success text-white p-3">{success}</p>) : null}
-      {error ? (<p className="bg-danger text-white p-3">{error}</p>) : null}
+      {success ? (<p className="bg-success text-white p-3 m-0">{success}</p>) : null}
+      {error ? (<p className="bg-danger text-white p-3 m-0">{error}</p>) : null}
       {!finishedProfile && username? <FinishProfile/> : null}
+      <div className='background'>
+        <img src="https://www.classicturf.org/wp-content/uploads/2018/02/Capture-highfive1.jpg" alt="" />
+      </div>
     </>
   )
 }

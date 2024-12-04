@@ -28,12 +28,12 @@ const UserMessages = () => {
 
 
   return (
-    <div>
+    <div style={{backgroundColor: "#f0f0f0", height: "100vh"}} className="user-message-container">
       <h1>Messages</h1>
       <ListGroup>
         {currentChats ? (
           currentChats.map((user) => (
-            <ListGroupItem>
+            <ListGroupItem style={{backgroundColor: "#f0f0f0", border: "none"}}>
               <UserMessagesCard user={user}></UserMessagesCard>
             </ListGroupItem>
           ))

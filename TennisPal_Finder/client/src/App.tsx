@@ -98,12 +98,14 @@ function App() {
 
   
 
+  
+
   return (
     <>
       <TokenContext.Provider value={token}>
       <UserContext.Provider value={currUser}>
         <BrowserRouter>
-          <NavigationBar user={currUser} logout={logout}></NavigationBar>
+          <NavigationBar user={currUser} finishedProfile={finishedProfile} logout={logout}></NavigationBar>
           <Routes>
             <Route path="/" element={<Home finishedProfile={finishedProfile}/>}></Route>
             <Route path="/login" element={<Login login={login} />}></Route>
@@ -138,7 +140,7 @@ function App() {
                 <UserMessages/>
               </ProtectedRoute> }> 
             </Route>
-            <Route path="/tennis_courts" element={
+            <Route path="/courts" element={
               <ProtectedRoute currUser={currUser}>
                 <TennisCourts/>
               </ProtectedRoute> }> 

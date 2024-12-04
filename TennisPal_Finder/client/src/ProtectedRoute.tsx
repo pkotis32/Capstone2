@@ -9,21 +9,23 @@ interface ProtectedRouteProps {
 
 // handles routes that need authorization, displays unauthorized message if user is not authorized for certain route
 const ProtectedRoute = ({ currUser, children }: ProtectedRouteProps) => {
-  const [showLoading, setShowLoading] = useState(true);
+  
+  const [loading, setLoading] = useState(true);
 
+  // Simulate a loading delay of 0.5 seconds
   useEffect(() => {
-    // Hide the spinner after 0.5 seconds
     const timer = setTimeout(() => {
-      setShowLoading(false);
-    }, 50); // 3 seconds timeout
+      setLoading(false);  // Set loading to false after 0.5 seconds
+    }, 500);  // 500ms = 0.5 seconds
 
-    // Cleanup the timeout on component unmount
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer);  // Cleanup timeout on component unmount
   }, []);
 
-  if (showLoading) {
-    return <div>Loading...</div>; 
+  if (loading) {
+    return <div>Loading...</div>; // You can replace this with a custom loading spinner or component
   }
+
+  
   return currUser ? children : <Navigate to="/" state={{error: "Unauthorized, please login/signup"}} />;
 };
 

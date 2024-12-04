@@ -82,7 +82,7 @@ const Message = () => {
   }
 
   return (
-    <div>
+    <div className="message-container">
       <h1>Message {receiver}</h1>
       <div className="mt-5 ref={messagesContainerRef} mb-3">
         <ListGroup className="messages">

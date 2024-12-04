@@ -20,3 +20,7 @@
 .message-area input {
   border-radius: 10px;
 }
+
+.message-container {
+  background-color: black;
+}

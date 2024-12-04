@@ -1,6 +1,6 @@
 .tab {
   padding: 10px 20px;
-  background-color: #b0aaaa; /* Light background color */
+  background-color: #d4cfcf; /* Light background color */
   color: black; /* Text color */
   border-radius: 5px;
   text-decoration: none; /* Remove the underline */
@@ -13,4 +13,11 @@
  } 
 
 
+ .navbar {
+  background-color: rgb(24, 63, 69) !important;
+ }
+
+ .logout {
+  color: rgb(213, 50, 50);
+ }
 

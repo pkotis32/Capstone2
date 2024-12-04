@@ -39,14 +39,15 @@ const Step1 = () => {
       await TennisApi.saveAddress(username, fullAddress, token)
       navigate('/setup_profile/step2')
     } catch (error: any) {
+      console.log(error)
       setError(error[0]);
     }
   }
   
   
   return (
-    <div className="step1">
-      <div className="container mt-5">
+    <div className="step1 pt-5" style={{backgroundColor: "#f0f0f0", height: "100vh"}}>
+      <div className="container">
         <div className="step">
           <h5 className='text-primary p-3'>Step 1/3</h5>
         </div>
