@@ -12,6 +12,7 @@ router.get('/', ensureLoggedIn, async function (req, res, next) {
 
   const response = await Court_locations.getCourtLocations();
   res.json({locations: response})
+  
 })
 
 export default router;

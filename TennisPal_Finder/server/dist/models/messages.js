@@ -15,10 +15,12 @@ class Messages {
     // saves sent message in the database
     static sendMessage(senderId, receiverId, message) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = db_1.db.query(`
+            const result = yield db_1.db.query(`
       INSERT INTO messages
       (sender_id, receiver_id, message_text)
-      VALUES ($1, $2, $3)`, [senderId, receiverId, message]);
+      VALUES ($1, $2, $3)
+      RETURNING sender_id AS "senderId", receiver_id AS "receiverId", message_text AS message`, [senderId, receiverId, message]);
+            return result.rows[0];
         });
     }
     // retrieves all messages associated with two users

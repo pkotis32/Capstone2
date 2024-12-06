@@ -14,12 +14,16 @@ const db_1 = require("../db");
 class Availabilities {
     static saveAvailabilities(user_id, availabilities) {
         return __awaiter(this, void 0, void 0, function* () {
+            const addedAvailabilities = [];
             for (let availability of availabilities) {
                 const result = yield db_1.db.query(`
         INSERT INTO user_availabilities
         (user_id, day_of_week)
-        VALUES ($1, $2)`, [user_id, availability]);
+        VALUES ($1, $2)
+        RETURNING user_id AS "userId", day_of_week AS "dayOfWeek"`, [user_id, availability]);
+                addedAvailabilities.push(result.rows[0]);
             }
+            return addedAvailabilities;
         });
     }
 }

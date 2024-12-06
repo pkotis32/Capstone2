@@ -7,9 +7,11 @@ class Court_locations {
     const result = await db.query(`
         INSERT INTO court_locations
         (user_id, court_name, court_address, court_latitude, court_longitude)
-        VALUES ($1, $2, $3, $4, $5)`,
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING user_id AS "userId", court_name AS "courtName", court_latitude AS "courtLatitude", court_longitude AS "courtLongitude"`,
         [userId, courtName, courtAddress, latitude, longitude]
     )
+    return result.rows[0]
   };
 
   

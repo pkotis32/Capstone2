@@ -7,12 +7,14 @@ class Messages {
   // saves sent message in the database
   static async sendMessage(senderId: number, receiverId: number, message: string) {
 
-    const result = db.query(`
+    const result = await db.query(`
       INSERT INTO messages
       (sender_id, receiver_id, message_text)
-      VALUES ($1, $2, $3)`,
+      VALUES ($1, $2, $3)
+      RETURNING sender_id AS "senderId", receiver_id AS "receiverId", message_text AS message`,
       [senderId, receiverId, message]
     );
+    return result.rows[0]
   }
 
   // retrieves all messages associated with two users
@@ -50,8 +52,6 @@ class Messages {
 
       return result.rows;
   }
-
-  
 }
 
 
