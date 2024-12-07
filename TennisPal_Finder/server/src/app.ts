@@ -10,7 +10,9 @@ import {authenticateJWT} from "./middleware/auth";
 
 
 const app = express();
-app.use(cors()); // Enable CORS for all routes
+app.use(cors({
+  origin: "*", // Allows requests from any origin (for development)
+}));
 app.use(express.json());
 app.use(authenticateJWT);
 app.use('/auth', authRoutes);
