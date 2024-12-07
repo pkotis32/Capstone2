@@ -17,15 +17,14 @@ const CourtsMap: React.FC = () => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   // List of court locations 
   const [courtLocations, setCourtLocations] = useState<CourtLocation[]>([]);
-  const [homeLat, setCourtLat] = useState<string>("")
-  const [homeLng, setCourtLng] = useState<string>("")
 
-
+  let homeLat: string;
+  let homeLng: string;
   useEffect(() => {
     const getUserLocation = async () => {
       const user = await TennisApi.getUser(username, token);
-      setCourtLat(user.userInfo.homeLat)
-      setCourtLng(user.userInfo.homeLng)
+      homeLat = user.userInfo.homeLat;
+      homeLng = user.userInfo.homeLng;
     }
     const getLocations = async () => {
       const {locations}: {locations: CourtLocation[]} = await TennisApi.getCourtLocations(token);
