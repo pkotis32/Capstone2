@@ -25,6 +25,8 @@ const CourtsMap: React.FC = () => {
       const user = await TennisApi.getUser(username, token);
       homeLat = user.userInfo.homeLat;
       homeLng = user.userInfo.homeLng;
+      console.log(homeLat)
+      console.log(homeLng)
     }
     const getLocations = async () => {
       const {locations}: {locations: CourtLocation[]} = await TennisApi.getCourtLocations(token);
