@@ -13,13 +13,12 @@ interface MessageInfo {
 interface MessageCardProps {
   message: MessageInfo,
   senderId: number,
-  receiverId: number
 }
 
 
 
 
-const MessageCard = ({message, senderId, receiverId}: MessageCardProps) => {
+const MessageCard = ({message, senderId}: MessageCardProps) => {
   return (
     <div className={`${senderId == message.senderId ? "sender" : "receiver"}`}>
       <Card className="message-container">

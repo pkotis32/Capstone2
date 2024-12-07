@@ -39,7 +39,7 @@ const Step3 = ({handleFinishProfile}: FinishProfileProps) => {
 
   // filters the form data to create an array the only contains the available days of the user
   let days = Object.entries(availabilities)
-      .filter(([day, value]) => value)
+      .filter(([_, value]) => value)
       .map(([day]) => day);
 
 

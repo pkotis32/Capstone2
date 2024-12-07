@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import {useState, useContext} from 'react'
 import './Step2.css'
 import {useNavigate} from 'react-router-dom'
 import UserContext from './UserContext.jsx'

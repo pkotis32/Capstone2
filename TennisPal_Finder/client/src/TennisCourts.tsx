@@ -1,4 +1,3 @@
-import React from 'react'
 import CourtsMap from './CourtsMap'
 import './TennisCourts.css'
 

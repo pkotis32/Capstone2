@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect, useRef} from 'react'
+import {useContext, useState, useEffect, useRef} from 'react'
 import { useParams } from 'react-router-dom';
 import TennisApi from '../api';
 import UserContext from './UserContext';
@@ -30,7 +30,6 @@ const Message = () => {
   
   // save the sender and receiver ids in state
   const [senderId, setSenderId] = useState<number>(0);
-  const [receiverId, setReceiverId] = useState<number>(0);
 
   // save the message in state
   const [newMessage, setNewMessage] = useState<string>("")
@@ -46,7 +45,6 @@ const Message = () => {
         let senderId = response1.userInfo.userId;
         let receiverId = response2.userInfo.userId;
         setSenderId(senderId);
-        setReceiverId(receiverId);
         const messages: MessageInfo[] = await TennisApi.getMessages(senderId, sender, receiverId, token);
         setCurrMessages(messages);
       }
@@ -88,7 +86,7 @@ const Message = () => {
         <ListGroup className="messages">
           {currMessages.map((message) => (
             <ListGroupItem key={message.messageId}>
-              <MessageCard message={message} senderId={senderId} receiverId={receiverId}></MessageCard>
+              <MessageCard message={message} senderId={senderId}></MessageCard>
             </ListGroupItem>
           ))}
           <div ref={messagesEndRef} />

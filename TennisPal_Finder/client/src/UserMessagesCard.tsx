@@ -1,4 +1,4 @@
-import {Card, CardBody, CardTitle, CardText} from 'reactstrap'
+import {Card, CardTitle} from 'reactstrap'
 import {useNavigate} from 'react-router-dom'
 import './UserMessagesCard.css'
 
