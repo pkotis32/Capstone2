@@ -26,8 +26,6 @@ const CourtsMap: React.FC = () => {
     
     getLocations();
 
-
-    console.log("hello")
   }, [])
 
 
@@ -46,8 +44,6 @@ const CourtsMap: React.FC = () => {
         };
   
         const { homeLat, homeLng } = await getUserLocation();
-        console.log(homeLat);
-        console.log(homeLng);
   
         // Initialize the map
         const center = { lat: homeLat, lng: homeLng };
