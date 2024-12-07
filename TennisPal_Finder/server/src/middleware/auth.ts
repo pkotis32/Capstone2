@@ -1,7 +1,7 @@
-import express, { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 const jwt = require("jsonwebtoken");
-const { SECRET_KEY } = require("../config");
-const { UnauthorizedError } = require("../expressError");
+import { SECRET_KEY } from "../config";
+import { UnauthorizedError } from "../expressError";
 
 
 
