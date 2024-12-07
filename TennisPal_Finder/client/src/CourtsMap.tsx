@@ -42,6 +42,8 @@ const CourtsMap: React.FC = () => {
     
     const lat = parseFloat(homeLat);
     const lng = parseFloat(homeLng);
+    console.log(lat)
+    console.log(lng)
     const center = {lat, lng}; 
     const map = new google.maps.Map(mapRef.current, {
       center,
