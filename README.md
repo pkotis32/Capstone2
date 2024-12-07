@@ -18,20 +18,58 @@ Express, Node.js, Typescript, React, PostgreSQL, SuperTest, Jest, RESTful APIs, 
 
 # Database Schema
 
-[Database Schema Link](https://github.com/pkotis32/Capstone2/blob/main/TennisPal_Finder_schema.drawio.png)
+[Database Schema Link]()
 
 
 # Installation instructions
+To clone and run this application, you will need Git and Node.js (which comes with npm) installed on your computer.
+```Bash
+# clone this repository
+$ git clone https://github.com/pkotis32/Capstone2.git
+
+# move into this directory
+$ cd TennisPal_Finder
+
+# move into the server directory and install dependencies
+$ cd server
+$ npm install
+
+# start the backend server
+$ npm start
+
+# move into the client directory and install dependencies
+$ cd ..
+$ cd client
+$ npm install
+
+# start the frontend server
+$ npm start
+
+# visit http://localhost:5173 in your web browser
+```
 
 
 
 # Usage/Features
 
-This application allows users to create a profile when they sign up. A user’s complete profile includes details such as their preferred court location and weekly availability.
+- Users can create a profile when signing up.
+- A complete profile includes:
+  - Saved home address
+  - Preferred court location
+  - Weekly availability
 
-Once the profile is fully completed, users gain full access to the application’s features. One key feature is the player search, which enables users to find nearby players. The application displays a list of players, their distance, and availability. Additionally, users can chat directly with players they find.
+- Once the profile is complete, users gain access to all features
+- Key features include:
+  - **Player Search:**
+    - Find nearby tennis players
+    - View a list of players with their distance and availability
+    
+  - **Player Chat:**
+    - Chat directly with players
 
-To make finding courts easier, the application also offers a court search feature, complete with an interactive map to locate nearby tennis courts.
+  - **Court Search:**
+    - Use an interactive map to locate nearby tennis courts.
+    - Simplifies the process of finding courts in the area.
 
 
 # Contact Info
