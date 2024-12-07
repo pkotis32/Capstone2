@@ -18,7 +18,7 @@ Express, Node.js, Typescript, React, PostgreSQL, SuperTest, Jest, RESTful APIs, 
 
 # Database Schema
 
-[Database Schema Link]()
+[Database Schema Link](https://github.com/pkotis32/Capstone2/blob/main/TennisPal_Finder_schema.drawio.png)
 
 
 # Installation instructions
