@@ -43,7 +43,7 @@ const Home = ({finishedProfile}: HomeProps) => {
       {error ? (<p className="bg-danger text-white p-3 m-0">{error}</p>) : null}
       {!finishedProfile && username? <FinishProfile/> : null}
       <div className='background'>
-        <img src="https://www.classicturf.org/wp-content/uploads/2018/02/Capture-highfive1.jpg" alt="" />
+        <img src="https://img.freepik.com/free-photo/young-couple-playing-tennis-court_1303-16307.jpg" alt="" />
       </div>
     </>
   )

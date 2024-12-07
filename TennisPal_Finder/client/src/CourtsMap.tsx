@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import TennisApi from "../api";
 import TokenContext from "./TokenContext";
+import UserContext from "./UserContext";
 
 interface CourtLocation {
   court_name: string;
@@ -12,18 +13,25 @@ interface CourtLocation {
 const CourtsMap: React.FC = () => {
 
   const token = useContext(TokenContext);
+  const username = useContext(UserContext);
   const mapRef = useRef<HTMLDivElement | null>(null);
   // List of court locations 
-  const [courtLocations, setCourtLocations] = useState<CourtLocation[]>([
-    
-  ]);
+  const [courtLocations, setCourtLocations] = useState<CourtLocation[]>([]);
+  const [homeLat, setCourtLat] = useState<string>("")
+  const [homeLng, setCourtLng] = useState<string>("")
 
 
   useEffect(() => {
+    const getUserLocation = async () => {
+      const user = await TennisApi.getUser(username, token);
+      setCourtLat(user.userInfo.homeLat)
+      setCourtLng(user.userInfo.homeLng)
+    }
     const getLocations = async () => {
       const {locations}: {locations: CourtLocation[]} = await TennisApi.getCourtLocations(token);
       setCourtLocations(locations)
     }
+    getUserLocation();
     getLocations();
   }, [])
 
@@ -32,7 +40,10 @@ const CourtsMap: React.FC = () => {
     if (!mapRef.current) return;
 
     // Initialize the map
-    const center = { lat: 42.0664, lng: -87.9373 }; // Example center
+    
+    const lat = parseFloat(homeLat);
+    const lng = parseFloat(homeLng);
+    const center = {lat, lng}; 
     const map = new google.maps.Map(mapRef.current, {
       center,
       zoom: 12
