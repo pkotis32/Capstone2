@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://tennispal-finder.onrender.com/";
+const BASE_URL = "https://tennispal-finder.onrender.com";
 
 
 // API class containing static methods sent to the API
