@@ -42,7 +42,10 @@ $ cd ..
 $ cd client
 $ npm install
 
-# create the database and necessary tables
+# create .env file and add this line:
+VITE_API_BASE_URL=http://localhost:3001
+
+# create the database and necessary tables with this sql dump
 $ psql postgres < tennisPal.sql
 
 # start the frontend server
