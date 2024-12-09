@@ -10,6 +10,7 @@ interface CourtLocation {
   
 }
 
+// dispays the interactive google map
 const CourtsMap: React.FC = () => {
 
   const token = useContext(TokenContext);

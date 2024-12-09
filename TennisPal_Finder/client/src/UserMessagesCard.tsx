@@ -7,6 +7,7 @@ interface UserMessageCardProps {
 }
 
 
+// card that contains the user information to display when showing people a user has messages with
 const UserMessagesCard = ({user}: UserMessageCardProps) => {
 
   const navigate = useNavigate();

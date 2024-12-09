@@ -17,7 +17,7 @@ interface MessageCardProps {
 
 
 
-
+// shows the individual message in the chat area
 const MessageCard = ({message, senderId}: MessageCardProps) => {
   return (
     <div className={`${senderId == message.senderId ? "sender" : "receiver"}`}>

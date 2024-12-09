@@ -5,6 +5,8 @@ import TokenContext from './TokenContext';
 import {ListGroup, ListGroupItem} from 'reactstrap'
 import UserMessagesCard from './UserMessagesCard';
 
+
+// displays all the users the a user has messages with
 const UserMessages = () => {
 
   const sender = useContext(UserContext);

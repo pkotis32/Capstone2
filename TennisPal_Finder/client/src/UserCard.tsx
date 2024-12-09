@@ -17,7 +17,7 @@ interface userCardProps {
   user: UserInfo
 }
 
-
+// displays the users basic profile info when searching for nearby users
 const UserCard = ({user}: userCardProps) => {
   
   const navigate = useNavigate();

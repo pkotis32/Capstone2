@@ -1,6 +1,7 @@
 import CourtsMap from './CourtsMap'
 import './TennisCourts.css'
 
+// parent component to the interactive google map
 const TennisCourts = () => {
   return (
     <div style={{backgroundColor: "#f0f0f0", height: "100vh"}}>

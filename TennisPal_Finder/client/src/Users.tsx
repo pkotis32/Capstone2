@@ -17,7 +17,7 @@ interface UserInfo {
 }
 
 
-
+// displays all the nearby players for a logged in user
 const Users = () => {
   
   // save all the users in state
@@ -56,9 +56,6 @@ const Users = () => {
   if (loading) {
     return <div>Loading users...</div>; // Show loading screen
   }
-
-
-
 
   
   return (
