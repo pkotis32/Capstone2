@@ -42,7 +42,7 @@ $ cd ..
 $ cd client
 $ npm install
 
-# create the database tables
+# create the database and necessary tables
 $ psql postgres < tennisPal.sql
 
 # start the frontend server
