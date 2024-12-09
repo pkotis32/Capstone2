@@ -5,7 +5,7 @@ The objective of this project was to develop an application that simplifies the 
 
 # Deployement Link
 
-[Project Link]()
+[Project Link](https://tennispal.onrender.com/)
 
 # Technologies Used 
 
@@ -22,7 +22,7 @@ Express, Node.js, Typescript, React, PostgreSQL, SuperTest, Jest, RESTful APIs, 
 
 
 # Installation instructions
-To clone and run this application, you will need Git and Node.js (which comes with npm) installed on your computer.
+To clone and run this application, you will need Git, Postgres, and Node.js (which comes with npm) installed on your computer.
 ```Bash
 # clone this repository
 $ git clone https://github.com/pkotis32/Capstone2.git
@@ -41,6 +41,9 @@ $ npm start
 $ cd ..
 $ cd client
 $ npm install
+
+# create the database and necessary tables
+$ psql postgres < tennisPal.sql
 
 # start the frontend server
 $ npm start
