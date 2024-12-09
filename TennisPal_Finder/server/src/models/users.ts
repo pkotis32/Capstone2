@@ -111,6 +111,7 @@ class Users {
     }
 
     
+    // gets user information for a specific user
     static async get(username: string) {
         const result = await db.query(
             `SELECT users.user_id AS "userId",
@@ -136,7 +137,7 @@ class Users {
         return result.rows
     }
 
-
+    // saves a user's home address
     static async saveAddress(username: string, address: string, latitude: number, longitude: number) {
         const result = await db.query(
             `UPDATE users 

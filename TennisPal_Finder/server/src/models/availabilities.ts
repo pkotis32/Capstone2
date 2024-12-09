@@ -3,6 +3,7 @@ import {db} from '../db';
 // handles methods that interact with the availabilities table
 class Availabilities {
 
+  // saves the availabilities for a specific user
   static async saveAvailabilities (user_id: number, availabilities: string[]) {
     
     const addedAvailabilities = [];

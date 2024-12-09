@@ -21,10 +21,6 @@ app.use('/messages', messageRoutes);
 app.use('/court_locations', courtLocationRoutes);
 
 
-app.get("/", (req: Request, res: Response) => {
-  res.json("Hello from Express!");
-});
-
 /** Handle 404 errors -- this matches everything */
 app.use((req: Request, res: Response, next: NextFunction) => {
   return next(new NotFoundError());

@@ -3,6 +3,7 @@ import {db} from '../db';
 // handles methods that interact with the court locations table
 class Court_locations {
 
+  // saves a users court address
   static async saveCourtAddress(userId: number, courtName: string, courtAddress: string, latitude: number, longitude: number) {
     const result = await db.query(`
         INSERT INTO court_locations
@@ -15,6 +16,7 @@ class Court_locations {
   };
 
   
+  // gets all the court locations saved 
   static async getCourtLocations() {
     const result = await db.query(`
       SELECT court_name,

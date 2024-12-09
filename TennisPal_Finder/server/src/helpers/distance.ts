@@ -1,3 +1,5 @@
+
+// function finds distance in miles between two points when given their latitudes and longitudes
 const haversineDistance = (
   lat1: number,
   lng1: number,

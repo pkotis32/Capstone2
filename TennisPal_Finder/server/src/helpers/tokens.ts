@@ -9,6 +9,8 @@ interface User {
     skillLevel: string
 }
 
+
+// create jwt for a user with the username as the payload
 function createToken (user: User): string {
 
     let payload: {username: string} = {
