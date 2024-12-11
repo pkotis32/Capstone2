@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("../db");
 // handles methods that interact with the court locations table
 class Court_locations {
+    // saves a users court address
     static saveCourtAddress(userId, courtName, courtAddress, latitude, longitude) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield db_1.db.query(`
@@ -23,6 +24,7 @@ class Court_locations {
         });
     }
     ;
+    // gets all the court locations saved 
     static getCourtLocations() {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield db_1.db.query(`

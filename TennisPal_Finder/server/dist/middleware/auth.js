@@ -4,8 +4,8 @@ exports.authenticateJWT = authenticateJWT;
 exports.ensureLoggedIn = ensureLoggedIn;
 exports.ensureCorrectUser = ensureCorrectUser;
 const jwt = require("jsonwebtoken");
-const { SECRET_KEY } = require("../config");
-const { UnauthorizedError } = require("../expressError");
+const config_1 = require("../config");
+const expressError_1 = require("../expressError");
 // if a token is provided, verify it and if valid, store the payload (username) on res.locals
 // if token is not value, username will not exist on res.locals
 function authenticateJWT(req, res, next) {
@@ -13,7 +13,7 @@ function authenticateJWT(req, res, next) {
         const authHeader = req.headers && req.headers.authorization;
         if (authHeader) {
             const token = authHeader.replace(/^[Bb]earer /, "").trim();
-            res.locals.user = jwt.verify(token, SECRET_KEY);
+            res.locals.user = jwt.verify(token, config_1.SECRET_KEY);
         }
         return next();
     }
@@ -25,7 +25,7 @@ function authenticateJWT(req, res, next) {
 function ensureLoggedIn(req, res, next) {
     try {
         if (!res.locals.user)
-            throw new UnauthorizedError();
+            throw new expressError_1.UnauthorizedError();
         return next();
     }
     catch (err) {
@@ -37,7 +37,7 @@ function ensureCorrectUser(req, res, next) {
     try {
         const user = res.locals.user;
         if (!(user && (user.username === req.params.username))) {
-            throw new UnauthorizedError();
+            throw new expressError_1.UnauthorizedError();
         }
         return next();
     }

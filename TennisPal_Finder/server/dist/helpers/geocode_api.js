@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const BASE_API = 'https://maps.googleapis.com/maps/api/geocode/json';
 const API_KEY = 'AIzaSyBJH3OKaWYrm3RiNkabZCCfyfM9Z2m0PLk';
+// determines the lat and lng of a given address
 function getLatLng(address) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

@@ -88,6 +88,7 @@ class Users {
             return result.rows;
         });
     }
+    // gets user information for a specific user
     static get(username) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield db_1.db.query(`SELECT users.user_id AS "userId",
@@ -110,6 +111,7 @@ class Users {
             return result.rows;
         });
     }
+    // saves a user's home address
     static saveAddress(username, address, latitude, longitude) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield db_1.db.query(`UPDATE users 

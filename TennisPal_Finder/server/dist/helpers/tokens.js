@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createToken = createToken;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../config");
+// create jwt for a user with the username as the payload
 function createToken(user) {
     let payload = {
         username: user.username

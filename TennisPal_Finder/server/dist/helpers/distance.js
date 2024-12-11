@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// function finds distance in miles between two points when given their latitudes and longitudes
 const haversineDistance = (lat1, lng1, lat2, lng2) => {
     const toRadians = (deg) => (deg * Math.PI) / 180;
     const R = 3958.8; // Radius of the Earth in miles
