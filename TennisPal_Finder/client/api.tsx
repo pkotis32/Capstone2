@@ -21,9 +21,14 @@ class TennisApi {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err: any) {
-      console.error("API Error:", err.response);
-      let message = err.response.data.error.message;
-      throw Array.isArray(message) ? message : [message];
+      // Check if `err.response` exists
+      if (err.response) {
+        console.error("API Error:", err.response);
+        const message = err.response.data?.error?.message || "Unknown error occurred";
+        throw Array.isArray(message) ? message : [message];
+      } else {
+        console.error("API Error: No response", err);
+      }
     }
   }
 

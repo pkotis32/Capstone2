@@ -21,8 +21,6 @@ interface MessageInfo {
 const Message = () => {
   
 
-  
-
   const sender = useContext(UserContext);
   const token = useContext(TokenContext)
   // retrieve the username from the url params
@@ -61,7 +59,7 @@ const Message = () => {
   useEffect(() => {
     if (messagesEndRef.current) {
       setTimeout(() => {
-        messagesEndRef.current!.scrollIntoView({ behavior: "smooth" });
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
       }, 0);
     }
   }, [currMessages]);

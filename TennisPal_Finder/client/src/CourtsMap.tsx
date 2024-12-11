@@ -21,8 +21,21 @@ const CourtsMap: React.FC = () => {
 
   useEffect(() => {
     const getLocations = async () => {
-      const {locations}: {locations: CourtLocation[]} = await TennisApi.getCourtLocations(token);
-      setCourtLocations(locations)
+      try {
+        const response = await TennisApi.getCourtLocations(token);
+        
+        // Check if response is valid and destructure safely
+        if (response && response.locations) {
+          const { locations }: { locations: CourtLocation[] } = response;
+          setCourtLocations(locations);
+        } else {
+          console.error("Locations data is missing or malformed");
+          // You can handle the case where data is missing here
+        }
+      } catch (error) {
+        console.error("Error fetching court locations:", error);
+        // Handle API error
+      }
     }
     
     getLocations();
