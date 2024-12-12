@@ -17,7 +17,7 @@ exports.PORT = PORT;
 function getDatabaseUri() {
     return (process.env.NODE_ENV === "test")
         ? "postgresql:///tennis_pal_test"
-        : process.env.DATABASE_URL || "postgresql:///tennis_pal";
+        : process.env.DATABASE_URL || "postgresql://postgres.jsqivmwkegtabekjmuhs:BassetHound2001$@aws-0-us-west-1.pooler.supabase.com:6543/postgres";
 }
 // Speed up bcrypt during tests, since the algorithm safety isn't being tested
 //

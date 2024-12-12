@@ -53,11 +53,11 @@ const Login = ({login}: loginProps) => {
           <div className="form_elements">
             <label>
               <div>Username:</div>
-              <input className="mb-2" name = "username" value = {formData.username} onChange = {(e) => handleChange(e)}  />
+              <input className="mb-2" name = "username" value = {formData.username} onChange = {(e) => handleChange(e)}  required/>
             </label>
             <label>
               <div>Password:</div>
-              <input className="mb-2" name = "password" value = {formData.password} onChange = {(e) => handleChange(e)} type="password" />
+              <input className="mb-2" name = "password" value = {formData.password} onChange = {(e) => handleChange(e)} type="password" required/>
             </label>
             <button className = "btn w-50 btn-primary">Login</button>
             {error ? (<span className="text-danger" style={{display: "block"}}>{error}</span>) : null}

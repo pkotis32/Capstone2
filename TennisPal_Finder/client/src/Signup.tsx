@@ -42,7 +42,17 @@ const Signup = ({signup}: signupProps) => {
       navigate('/', {state: {message: "You successfully signed up!"}});
     }
     catch (error: any) {
-      setError(error[0]);
+      console.log(error)
+      if (error[0] == "instance.password does not meet minimum length of 6") {
+        setError("password must be at least 6 characters")
+      }
+      else if (error[0].includes(`duplicate key value violates unique constraint "users_email_key"`)){
+        setError("email already in use")
+      }
+      else {
+        setError(error[0]);
+      }
+      
     }
   }
   
@@ -55,23 +65,23 @@ const Signup = ({signup}: signupProps) => {
         <div className="form_elements">
           <label>
             <div> Username: </div>
-            <input className="mb-2" name="username" value={formData.username} onChange={(e) => handleChange(e)} type="text" />
+            <input className="mb-2" name="username" value={formData.username} onChange={(e) => handleChange(e)} type="text" required/>
           </label>
           <label>
             <div>Password:</div>
-            <input className="mb-2" name="password" value={formData.password} onChange={(e) => handleChange(e)} type="password" />
+            <input className="mb-2" name="password" value={formData.password} onChange={(e) => handleChange(e)} type="password" required/>
           </label>
           <label>
             <div>Email:</div>
-            <input className="mb-2" name="email" value={formData.email} onChange={(e) => handleChange(e)} type="text" />
+            <input className="mb-2" name="email" value={formData.email} onChange={(e) => handleChange(e)} type="text" required/>
           </label>
           <label>
             <div>First Name:</div> 
-            <input className="mb-2" name="firstName" value={formData.firstName} onChange={(e) => handleChange(e)} type="text" />
+            <input className="mb-2" name="firstName" value={formData.firstName} onChange={(e) => handleChange(e)} type="text" required/>
           </label>
           <label>
             <div>Last Name:</div> 
-            <input className="mb-2" name="lastName" value={formData.lastName} onChange={(e) => handleChange(e)} type="text" />
+            <input className="mb-2" name="lastName" value={formData.lastName} onChange={(e) => handleChange(e)} type="text" required/>
           </label>
           <label>
             <div>

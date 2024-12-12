@@ -57,6 +57,7 @@ router.post('/register', function (req, res, next) {
             res.status(201).json({ token });
         }
         catch (error) {
+            console.log(error);
             return next(error);
         }
     });
