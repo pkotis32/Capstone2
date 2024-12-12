@@ -17,6 +17,7 @@ import Users from './Users'
 import Message from './Message'
 import UserMessages from './UserMessages'
 import TennisCourts from './TennisCourts';
+import NotFound from './NotFound';
 
 
 
@@ -145,6 +146,7 @@ function App() {
                 <TennisCourts/>
               </ProtectedRoute> }> 
             </Route>
+            <Route path="*" element={<NotFound />} /> {/* Catch-all route */}
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
