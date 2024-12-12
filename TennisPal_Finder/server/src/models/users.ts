@@ -142,9 +142,11 @@ class Users {
         const result = await db.query(
             `UPDATE users 
              SET address = $1, latitude = $2, longitude = $3
-             WHERE username = $4`,
+             WHERE username = $4
+             RETURNING address, latitude, longitude`,
             [address, latitude, longitude, username]
         );
+        return result.rows[0];
     }
 
 

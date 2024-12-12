@@ -116,7 +116,9 @@ class Users {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield db_1.db.query(`UPDATE users 
              SET address = $1, latitude = $2, longitude = $3
-             WHERE username = $4`, [address, latitude, longitude, username]);
+             WHERE username = $4
+             RETURNING address, latitude, longitude`, [address, latitude, longitude, username]);
+            return result.rows[0];
         });
     }
 }
